@@ -1,0 +1,61 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- <title>用户登录</title> -->
+<title>Apache Tomcat WebSocket Examples: Echo</title>
+<style type="text/css"><![CDATA[
+        input#chat {
+            width: 410px
+        }
+
+        #console-container {
+            width: 400px;
+        }
+
+        #console {
+            border: 1px solid #CCCCCC;
+            border-right-color: #999999;
+            border-bottom-color: #999999;
+            height: 370px;
+            overflow-y: scroll;
+            padding: 5px;
+            width: 100%;
+        }
+
+        #console p {
+            padding: 0;
+            margin: 0;
+        }
+    ]]></style>
+</head>
+
+<body>
+	<!-- <center>用户登录</center> -->
+	<h3>用户登录</h3>
+	<form action="checklogin.jsp" method="post">
+		用户名:<input type="text" name="userName"> 
+		密码:<input	type="password" name="password"> 
+		<input type="submit" name="login" value="登录"> 
+		<input type="reset" name="reset" value="取消">
+	</form>
+	<div>
+    <p>
+        <input type="text" placeholder="type and press enter to chat" id="chat" />
+    </p>
+    <div id="console-container">
+        <div id="console"/>
+    </div>
+</div>
+</body>
+
+<br/>
+
+<script> 
+  document.write(" hello world!!! ");
+</script>
+<br />
+
+</html>

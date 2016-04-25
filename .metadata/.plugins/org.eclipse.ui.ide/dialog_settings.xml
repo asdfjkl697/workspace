@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="ExternalProjectImportWizard">
+		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
+		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
+		<item value="true" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
+		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="/home/chen/workspace/first"/>
+			<item value="/home/chen/workspace/ajaxtable"/>
+			<item value="/home/chen/workspace/taskCheckboxCount"/>
+			<item value="/home/chen/workspace/ajaxliandong"/>
+			<item value="/home/chen/workspace/webSocketTest"/>
+			<item value="/home/chen/workspace/webtest"/>
+			<item value="/home/chen/workspace/wschat"/>
+			<item value="/home/chen/workspace/examples"/>
+			<item value="/home/chen/workspace/DeviceDemo"/>
+			<item value="/home/chen/workspace/webfin"/>
+			<item value="/home/chen/workspace/web3"/>
+			<item value="/home/chen/workspace/web2"/>
+			<item value="/home/chen/workspace/socket2"/>
+			<item value="/home/chen/workspace/WebSocketUser"/>
+			<item value="/home/chen/workspace/HNUST"/>
+			<item value="/home/chen/workspace/ssmtest"/>
+			<item value="/home/chen/workspace/springmvc_mybatis"/>
+			<item value="/home/chen/workspace/websocket"/>
+			<item value="/home/chen/workspace/plat"/>
+			<item value="/home/chen/workspace/Java-WebSocket-master"/>
+		</list>
+		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value=""/>
+		</list>
+	</section>
+	<section name="SaveAsDialogSettings">
+		<item value="613" key="DIALOG_WIDTH"/>
+		<item value="-1" key="DIALOG_Y_ORIGIN"/>
+		<item value="0" key="DIALOG_X_ORIGIN"/>
+		<item value="601" key="DIALOG_HEIGHT"/>
+		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="NewWizardAction">
+	</section>
+	<section name="CleanDialogSettings">
+		<item value="569" key="DIALOG_WIDTH"/>
+		<item value="true" key="BUILD_NOW"/>
+		<item value="152" key="DIALOG_Y_ORIGIN"/>
+		<item value="true" key="BUILD_ALL"/>
+		<item value="434" key="DIALOG_X_ORIGIN"/>
+		<item value="475" key="DIALOG_HEIGHT"/>
+		<item value="false" key="TOGGLE_SELECTED"/>
+	</section>
+</section>

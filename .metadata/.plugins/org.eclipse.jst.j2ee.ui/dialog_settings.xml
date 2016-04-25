@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="true" key="J2EE_EXPORT_OVERWRITE"/>
+	<item value="false" key="J2EE_EXPORT_SOURCE"/>
+	<list key="J2EE_EXPORT_JST_WEB">
+		<item value="/home/chen/workspace/run/webtest.war"/>
+		<item value="/home/chen/workspace/run/tweb.war"/>
+		<item value="/home/chen/workspace/run/Test.war"/>
+		<item value="/home/chen/workspace/run/wschat.war"/>
+		<item value="/home/chen/workspace/run/examples.war"/>
+	</list>
+	<list key="MRU_RUNTIME_STORE">
+		<item value="Apache Tomcat v7.0"/>
+		<item value="NULL_RUNTIME"/>
+	</list>
+</section>

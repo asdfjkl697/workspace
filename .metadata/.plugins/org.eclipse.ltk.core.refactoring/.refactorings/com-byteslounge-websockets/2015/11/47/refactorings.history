@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from project &apos;com-byteslounge-websockets&apos;&#x0A;- Original project: &apos;com-byteslounge-websockets&apos;&#x0A;- Original element: &apos;com-byteslounge-websockets/src/main.java.com.byteslounge.websockets&apos;" description="Delete element" element1="/src&lt;main.java.com.byteslounge.websockets" element2="/src&lt;main.java.com.byteslounge" element3="/src&lt;main.java.com" element4="/src&lt;main.java" elements="4" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1447726290869" subPackages="false" version="1.0"/>
+</session>

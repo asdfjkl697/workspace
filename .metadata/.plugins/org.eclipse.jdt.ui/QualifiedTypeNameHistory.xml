@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.apache.mina.core.service.IoAcceptor"/>
+<fullyQualifiedTypeName name="org.apache.mina.transport.socket.nio.NioSocketAcceptor"/>
+<fullyQualifiedTypeName name="org.apache.mina.filter.logging.LoggingFilter"/>
+<fullyQualifiedTypeName name="org.apache.mina.filter.codec.ProtocolCodecFilter"/>
+<fullyQualifiedTypeName name="org.apache.mina.filter.codec.textline.TextLineCodecFactory"/>
+<fullyQualifiedTypeName name="java.nio.charset.Charset"/>
+<fullyQualifiedTypeName name="org.apache.mina.core.session.IdleStatus"/>
+<fullyQualifiedTypeName name="java.net.InetSocketAddress"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.Set"/>
+<fullyQualifiedTypeName name="java.util.Collections"/>
+<fullyQualifiedTypeName name="java.util.HashSet"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="org.apache.mina.filter.codec.ProtocolEncoderOutput"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="org.apache.mina.filter.codec.CumulativeProtocolDecoder"/>
+<fullyQualifiedTypeName name="org.apache.mina.core.buffer.IoBuffer"/>
+<fullyQualifiedTypeName name="org.apache.mina.filter.codec.ProtocolDecoderOutput"/>
+<fullyQualifiedTypeName name="org.apache.mina.filter.codec.ProtocolCodecFactory"/>
+<fullyQualifiedTypeName name="org.apache.mina.filter.codec.ProtocolDecoder"/>
+<fullyQualifiedTypeName name="org.apache.mina.filter.codec.ProtocolEncoder"/>
+<fullyQualifiedTypeName name="org.apache.mina.core.service.IoHandlerAdapter"/>
+<fullyQualifiedTypeName name="org.apache.mina.core.session.IoSession"/>
+<fullyQualifiedTypeName name="java.lang.reflect.Array"/>
+<fullyQualifiedTypeName name="com.itextpdf.text.pdf.PdfWriter"/>
+<fullyQualifiedTypeName name="com.itextpdf.text.Paragraph"/>
+<fullyQualifiedTypeName name="com.itextpdf.text.DocumentException"/>
+<fullyQualifiedTypeName name="java.sql.Statement"/>
+<fullyQualifiedTypeName name="java.util.Calendar"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,99 @@
+package com.webSocket.client;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.websocket.OnClose;
+import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+import com.web.message.ChartMessage;
+
+
+@ServerEndpoint("/echo")
+public class EchoSocket {
+	private static List<String> usernames = new ArrayList<String>();
+	private static List<Session> sessions = new ArrayList<Session>();
+	private static Map<String,Session> sessionMap = new HashMap<String,Session>();
+	private String username; 
+	private Session session;
+
+	@OnOpen
+	public void open(Session session){ //��websocket
+		System.out.println("userid = "+session.getId());
+		String string = session.getQueryString();
+		this.username = string.split("=")[1];
+		this.usernames.add(this.username);
+		this.sessions.add(session);
+		sessionMap.put(this.username, session);
+		String welcome = "welcome "+this.username+" connect";
+		ChartMessage message = new ChartMessage(welcome,this.usernames);
+		this.broadcast(this.sessions,message.getChartMessageToJson());
+
+	}
+	
+	@OnClose
+	public void close(Session session){ //�ر�websocket
+		this.sessions.remove(session);
+		this.usernames.remove(this.username);
+		String goMsg = this.username+" disconnect";
+		ChartMessage message = new ChartMessage(goMsg,this.usernames);
+		sessionMap.remove(this.username);
+		this.broadcast(this.sessions,message.getChartMessageToJson());
+		System.out.println("websocket is close");
+	}
+	
+	@OnMessage
+	public void message(Session session,String msg){
+		
+		if (session.isOpen()) {
+			JSONObject msgJsonObj = JSONObject.fromObject(msg);
+			ChartMessage chartMessage = (ChartMessage) JSONObject.toBean(msgJsonObj, ChartMessage.class);
+			chartMessage.setUsernames(this.usernames);
+			if(chartMessage.getType() == 1){  // type =1 ����
+				List<Session> sessionsPrivateList = new ArrayList<Session>();
+				for(int i = 0 ; i <chartMessage.getTo().size() ; i++){
+					String userChartName = chartMessage.getTo().get(i);
+					sessionsPrivateList.add(sessionMap.get(userChartName));
+				}
+				sessionsPrivateList.add(sessionMap.get(chartMessage.getFrom()));
+				this.broadcast(sessionsPrivateList,chartMessage.getChartMessageToJson());
+				
+			}else if(chartMessage.getType() == 2){ // type = 2 Ⱥ��
+				this.broadcast(this.sessions,chartMessage.getChartMessageToJson());
+			}
+
+		}
+	}
+
+	public List<String> getUsernames() {
+		return usernames;
+	}
+
+	public List<Session> getSessions() {
+		return sessions;
+	}
+	
+    private  void broadcast(List<Session> sessionsList,String msg) { //�㲥��������
+    	if(sessionsList.size() > 0){
+    		for(int i = 0 ; i < sessionsList.size() ; i++){
+    			try {
+					sessionsList.get(i).getBasicRemote().sendText(msg);
+				} catch (IOException e) {
+					System.out.println("EchoSocket.java broadcast method ,�㲥ʧ�� ");
+					e.printStackTrace();
+				}
+        	}
+    	}
+
+    }
+
+}

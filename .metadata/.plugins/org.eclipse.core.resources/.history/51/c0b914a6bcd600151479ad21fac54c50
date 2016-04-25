@@ -1,0 +1,340 @@
+<%@ page contentType="text/html; charset=gb2312"%>
+<%@ page language="java"%>
+<%@ page import="com.mysql.jdbc.Driver"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.net.Socket"%>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>TW_WEB</title>
+<style type="text/css">
+#Container {
+	/* width: 1200px; */
+	margin: 0 auto; /*设置整个容器在浏览器中水平居中*/
+	/* background: #CF3; */
+}
+
+#Header {
+	height: 60px;
+	/* background: #093; */
+}
+
+#logo {
+	padding-left: 50px;
+	padding-top: 20px;
+	padding-bottom: 50px;
+}
+
+#Content {
+	height: 540px;
+	/*此处对容器设置了高度，一般不建议对容器设置高度，一般使用overflow:auto;属性设置容器根据内容自适应高度，如果不指定高度或不设置自适应高度，容器将默认为1个字符高度，容器下方的布局元素（footer）设置margin-top:属性将无效*/
+	margin-top: 20px; /*此处讲解margin的用法，设置content与上面header元素之间的距离*/
+	/* background: #0FF; */
+}
+
+#Content-Left {
+	height: 500px;
+	width: 150px;
+	margin: 20px; /*设置元素跟其他元素的距离为20像素*/
+	float: left; /*设置浮动，实现多列效果，div+Css布局中很重要的*/
+	/* background: #cc0; */
+}
+
+#Content-Main {
+	height: 500px;
+	width: 160px;
+	margin: 20px; /*设置元素跟其他元素的距离为20像素*/
+	float: left; /*设置浮动，实现多列效果，div+Css布局中很重要的*/
+	/* background: #cc0; */
+}
+
+#Content-View {
+	height: 500px;
+	width: 620px;
+	margin: 20px; /*设置元素跟其他元素的距离为20像素*/
+	float: left; /*设置浮动，实现多列效果，div+Css布局中很重要的*/
+	/* background: #cc0; */
+}
+
+/*注：Content-Left和Content-Main元素是Content元素的子元素，两个元素使用了float:left;设置成两列，这个两个元素的宽度和这个两个元素设置的padding、margin的和一定不能大于父层Content元素的宽度，否则设置列将失败*/
+#Footer {
+	height: 40px;
+	/* background: #90C; */
+	margin-top: 20px;
+}
+
+.Clear {
+	clear: both;
+}
+</style>
+
+<!--  <script type="application/javascript"> -->
+ <script type="text/javascript">
+        var Chat = {};
+
+        Chat.socket = null;
+
+        Chat.connect = (function(host) {
+            if ('WebSocket' in window) {
+                Chat.socket = new WebSocket(host);
+            } else if ('MozWebSocket' in window) {
+                Chat.socket = new MozWebSocket(host);
+            } else {
+                Console.log('Error: WebSocket is not supported by this browser.');
+                return;
+            }
+
+            Chat.socket.onopen = function () {
+                Console.log('Info: WebSocket connection opened.');
+                document.getElementById('chat').onkeydown = function(event) {
+                    if (event.keyCode == 13) {
+                        Chat.sendMessage();
+                    }
+                };
+            };
+
+            Chat.socket.onclose = function () {
+                document.getElementById('chat').onkeydown = null;
+                Console.log('Info: WebSocket closed.');
+            };
+
+            Chat.socket.onmessage = function (message) {
+                Console.log(message.data);
+            };
+        });
+
+        Chat.initialize = function() {
+            if (window.location.protocol == 'http:') {
+                Chat.connect('ws://' + window.location.host + '/tweb/websocket/chat');
+            } else {
+                Chat.connect('wss://' + window.location.host + '/tweb/websocket/chat');
+            }
+        };
+
+        Chat.sendMessage = (function() {
+            var message = document.getElementById('chat').value;
+            if (message != '') {
+                Chat.socket.send(message);
+                document.getElementById('chat').value = '';
+            }
+        });
+
+        var Console = {};
+
+        Console.log = (function(message) {
+            var console = document.getElementById('console');
+            var p = document.createElement('p');
+            //p.style.wordWrap = 'break-word';
+            //p.innerHTML = message;
+            console.appendChild(p);
+            while (console.childNodes.length > 25) {
+                console.removeChild(console.firstChild);
+            }
+            console.scrollTop = console.scrollHeight;
+        });
+
+        Chat.initialize();
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Remove elements with "noscript" class - <noscript> is not allowed in XHTML
+            var noscripts = document.getElementsByClassName("noscript");
+            for (var i = 0; i < noscripts.length; i++) {
+                noscripts[i].parentNode.removeChild(noscripts[i]);
+            }
+        }, false);
+
+    </script>
+    
+</head>
+
+<body>
+	<%
+		String u = (String) session.getAttribute("userid");
+		if (session.getAttribute("userid") == null) {
+			response.sendRedirect("index.jsp");
+			return;
+		}
+	%>
+	<%
+		java.util.Date d = new java.util.Date();
+	%>
+	<% 	
+		String name = request.getParameter("userName") ; // 接收表单参数
+	%>
+	<%
+		boolean value7 = false ;
+	%>
+	
+
+</body>
+
+<body background="image/DNA.jpg">
+	<div id="Container">
+		<div id="Header">
+				<div id="logo" style="font-size:25px">					
+					&nbsp&nbsp&nbsp 图旺平台 
+					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 用户名：<%=name%>
+					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 时间：	<%=d.toString()%>
+				</div>
+		</div>
+		<div id="Content">
+			<div id="Content-Left">
+				<script language="JavaScript" type="text/JavaScript">
+					function showhide_obj(obj, icon) {
+						obj = document.getElementById(obj);
+						icon = document.getElementById(icon);
+						if (obj.style.display == "none") {
+							//指定文档中的对象为div,仅适用于IE;   
+							div_list = document.getElementsByTagName("div");
+							for (i = 0; i < div_list.length; i++) {
+								thisDiv = div_list[i];
+								if (thisDiv.id.indexOf("title") != -1)//当文档div中的id含有list时,与charAt类似;
+								{
+									//循环把所有菜单链接都隐躲起来
+									thisDiv.style.display = "none";
+									icon.innerHTML = "+";
+								}
+							}
+
+							myfont = document.getElementsByTagName("font");
+							for (i = 0; i < myfont.length; i++) {
+								thisfont = myfont[i];
+							}
+							icon.innerHTML = "-";
+							obj.style.display = ""; //只显示当前链接
+						} else {
+							//当前对象是打开的，就封闭它;
+							icon.innerHTML = "+";
+							obj.style.display = "none";
+						}
+					}
+
+					function show_this(obj) {
+						obj = document.getElementById(obj);
+						if (obj.id == obj.id) {
+							blinkicon = document.getElementsByTagName("font");
+							for (x = 0; x < blinkicon.length; x++) {
+								if (blinkicon[x].id.indexOf("select") != -1
+										&& obj.id != obj) {
+									blinkicon[x].innerHTML = " ";
+								}
+							}
+							obj.innerHTML = ">";
+						} else {
+							obj.innerHTML = " ";
+						}
+					}
+				//-->
+				</script>
+				<div style="line-height: 40px;"
+					onClick="showhide_obj('title3','icon3')">
+					<font id='icon3'>+</font>隔离器A
+				</div>
+				<div id="title3"
+					style="background-color: #fffff3; line-height: 35px; display: none;">
+					<span id=menu3_1 onclick="show_this('select3_1')"><font
+						id='select3_1'></font>TW00011</span></font><br /> <span id=menu3_2
+						onclick="show_this('select3_2')"><font id='select3_2'></font>TW00012</span></font><br />
+					<span id=menu3_3 onclick="show_this('select3_3')"><font
+						id='select3_3'></font>TW00013</span></font><br />
+				</div>
+				<div style="line-height: 40px;"
+					onClick="showhide_obj('title4','icon4')">
+					<font id='icon4'>+</font>灭菌器
+				</div>
+
+				<br />
+
+
+			</div>
+			<div id="Content-Main">
+				<br />
+				<div id="button1">
+					<input class="call" type="submit" value=" 自动运行 "
+						onclick="tcpsend()" style="width: 80px; height: 40px; background: bule" />
+				</div>
+				<div id="button2">
+					<input class="call" type="submit" value="   除湿   " onclick=""
+						style="width: 80px; height: 40px; background: red" />
+				</div>
+				<div id="button3">
+					<input class="call" type="submit" value="   加药   " onclick=""
+						style="width: 80px; height: 40px; background: #ADD8E6" />
+				</div>
+				<div id="button4">
+					<input class="call" type="submit" value=" 灭菌保持 " onclick=""
+						style="width: 80px; height: 40px; background: #ADFF2F" />
+				</div>
+				<div id="button5">
+					<input class="call" type="submit" value="   通风   " onclick=""
+						style="width: 80px; height: 40px; background: #999999" />
+				</div>
+				<div id="button6">
+					<input class="call" type="submit" value="   保压   " onclick=""
+						style="width: 80px; height: 40px; background: #7D26CD" />
+				</div>
+				<br /> 
+			
+				<input type="button7" onclick="window.location.href='search.jsp'" value="数据查询"
+					style="width: 80px; height: 40px"> <br /> 
+				<input type="button8" onclick="window.location.href='para_set.jsp'"
+					value="参数设置" style="width: 80px; height: 40px"> <br /> 
+				<input
+					type="button9" onclick="window.location.href='video.jsp'" value="视频"
+					style="width: 80px; height: 40px"> <br />
+				<input
+					type="button10" onclick="window.location.href='authority.jsp'" value="管理员"
+					style="width: 80px; height: 40px"> <br />
+			</div>
+
+			<div id="Content-View">
+				<br /> 设备编号：TW00011 <br /> 
+				当前湿度1: <input type="text" id="当前湿度1"
+					value="66.5" style="width: 50px; height: 30px" /> RH% <br />
+				当前温度1: <input type="text" id="当前温度1" value="23.5"
+					style="width: 50px; height: 30px" /> ℃<br /> 
+				当前压差1: <input type="text" id="当前压差1" value="30.3"
+					style="width: 50px; height: 30px" /> Pa<br /> 
+				当前浓度1: <input type="text" id="当前浓度1" value="1208"
+					style="width: 50px; height: 30px" /> PPM<br /> 
+				当前风速1: <input type="text" id="当前风速1" value="0.24"
+					style="width: 50px; height: 30px" /> m/s<br /> 
+				当前状态1: 灭菌保持 <br />
+				持续时间1: <input type="text" id="持续时间1" value="22"
+					style="width: 50px; height: 30px" /> min<br />
+
+				<div class="noscript">
+					<h2 style="color: #ff0000">Seems your browser doesn't support
+						Javascript! Websockets rely on Javascript being enabled. Please
+						enable Javascript and reload this page!</h2>
+				</div>
+				<div>
+					<p>
+						<input type="text" placeholder="type and press enter to chat"
+							id="chat" />
+					</p>
+					<div id="console" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="Clear">
+		<!--如何你上面用到float,下面布局开始前最好清除一下。-->
+	</div>
+	<div id="Footer">Footer</div>
+
+	</div>
+
+</body>
+
+
+
+
+
+
+
+
+
+
+

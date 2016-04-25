@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<libraryInfos>
+<libraryInfo home="/home/chen/jdk" version="1.7.0_79">
+<bootpath>
+<entry path="/home/chen/jdk/jre/lib/resources.jar"/>
+<entry path="/home/chen/jdk/jre/lib/rt.jar"/>
+<entry path="/home/chen/jdk/jre/lib/sunrsasign.jar"/>
+<entry path="/home/chen/jdk/jre/lib/jsse.jar"/>
+<entry path="/home/chen/jdk/jre/lib/jce.jar"/>
+<entry path="/home/chen/jdk/jre/lib/charsets.jar"/>
+<entry path="/home/chen/jdk/jre/lib/jfr.jar"/>
+<entry path="/home/chen/jdk/jre/classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="/home/chen/jdk/jre/lib/ext"/>
+<entry path="/usr/java/packages/lib/ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="/home/chen/jdk/jre/lib/endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+<libraryInfo home="/home/chen/jdk/jre" version="1.7.0_79">
+<bootpath>
+<entry path="/home/chen/jdk/jre/lib/resources.jar"/>
+<entry path="/home/chen/jdk/jre/lib/rt.jar"/>
+<entry path="/home/chen/jdk/jre/lib/sunrsasign.jar"/>
+<entry path="/home/chen/jdk/jre/lib/jsse.jar"/>
+<entry path="/home/chen/jdk/jre/lib/jce.jar"/>
+<entry path="/home/chen/jdk/jre/lib/charsets.jar"/>
+<entry path="/home/chen/jdk/jre/lib/jfr.jar"/>
+<entry path="/home/chen/jdk/jre/classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="/home/chen/jdk/jre/lib/ext"/>
+<entry path="/usr/java/packages/lib/ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="/home/chen/jdk/jre/lib/endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+</libraryInfos>

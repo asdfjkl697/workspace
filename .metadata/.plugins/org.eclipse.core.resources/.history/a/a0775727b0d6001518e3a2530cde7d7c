@@ -1,0 +1,25 @@
+package com.webSocket.config;
+
+import java.util.Set;
+
+import javax.websocket.Endpoint;
+import javax.websocket.server.ServerApplicationConfig;
+import javax.websocket.server.ServerEndpointConfig;
+
+public class DemeConfig implements ServerApplicationConfig{
+	//ע��ķ�ʽ ����
+	public Set<Class<?>> getAnnotatedEndpointClasses(Set<Class<?>> scan) {
+		System.out.println("-------------websoket start-----------------");
+		System.out.println("scan.size() = " + scan.size());
+		
+		return scan; //����Ҫ����scan,������������ʧ��
+	}
+
+	//�ӿڷ�ʽ����
+	public Set<ServerEndpointConfig> getEndpointConfigs(
+			Set<Class<? extends Endpoint>> arg0) {
+	
+		return null;
+	}
+
+}

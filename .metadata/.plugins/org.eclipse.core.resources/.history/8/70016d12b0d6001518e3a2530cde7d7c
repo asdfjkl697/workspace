@@ -1,0 +1,15 @@
+package com.test;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+import com.web.message.ChartMessage;
+
+public class TestJsonToObj {
+  public static void main(String args[]){
+	  String msg = "{'type':1,'from':'wangwu','to':['zhangsan','lisi'],'content':'          '}";
+	  JSONObject jsStr = JSONObject.fromObject(msg);
+	  System.out.println("jsStr = " + jsStr);
+
+  }
+}

@@ -1,0 +1,41 @@
+<%@ page import="com.mysql.jdbc.Driver"%>
+<%@ page import="java.sql.*"%>
+<%@ page contentType="text/html; charset=gb2312"%>
+
+<%   
+    response.setContentType("text/xml; charset=UTF-8");  
+    response.setHeader("Cache-Control","no-cache");  
+    
+	String driverName = "com.mysql.jdbc.Driver";
+	String userName = "root";
+	String userPasswd = "102030";
+	String dbName = "abc";
+	String tableName = "TW001_2016";
+	//String tableName = request.getParameter("userName");
+	String url = "jdbc:mysql://localhost/" + dbName + "?user=" + userName + "&password=" + userPasswd;
+	Class.forName("com.mysql.jdbc.Driver").newInstance();
+	Connection connection = DriverManager.getConnection(url);
+	Statement statement = connection.createStatement();
+	//String sql = "SELECT * FROM " + tableName + " ORDER BY id DESC ";
+	//String sql = "SELECT * FROM " + tableName + " ORDER BY id DESC LIMIT 21";
+	String sql = "SELECT * FROM " + tableName  +  " where (minute<20 and devid=2)" + " ORDER BY id DESC LIMIT 21";	
+	ResultSet rs = statement.executeQuery(sql);
+	
+	out.println("<response>");           
+	while (rs.next()) {
+ 		String date = rs.getString(3)+ "-" + String.format("%2s", rs.getString(4)) 
+		+ "-" + String.format("%2s", rs.getString(5)) + String.format("%2s", rs.getString(6)) 
+		+ "-" + String.format("%2s", rs.getString(7)) + "-" + String.format("%2s", rs.getString(8))
+ 		+ String.format("%2s", rs.getString(9))+ String.format("%2s", rs.getString(10));
+ 		date = date.replaceAll("\\s", "0");
+		out.println(date);
+		out.println(rs.getString(12));
+		out.println(rs.getString(2));
+	}
+    out.println("</response>");  
+    out.close();  
+    
+	rs.close();
+	statement.close();
+	connection.close();  
+%>

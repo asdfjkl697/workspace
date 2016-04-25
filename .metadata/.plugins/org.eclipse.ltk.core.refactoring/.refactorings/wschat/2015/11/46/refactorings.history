@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;examples/WebContent/websocket/echo.xhtml&apos; to &apos;echo.jsp&apos;" description="Rename resource &apos;echo.xhtml&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="WebContent/websocket/echo.xhtml" name="echo.jsp" stamp="1447376760078" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;examples/WebContent/websocket/echo.jsp&apos; to &apos;echo.xhtml&apos;" description="Rename resource &apos;echo.jsp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="WebContent/websocket/echo.jsp" name="echo.xhtml" stamp="1447377187769" updateReferences="true"/>
+</session>

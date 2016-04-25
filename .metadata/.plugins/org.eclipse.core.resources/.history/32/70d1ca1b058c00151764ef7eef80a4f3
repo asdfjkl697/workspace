@@ -1,0 +1,151 @@
+package plat;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Calendar;
+import java.util.Collections;
+
+import org.apache.mina.core.service.IoAcceptor;
+import org.apache.mina.core.service.IoHandlerAdapter;
+import org.apache.mina.core.session.IdleStatus;
+import org.apache.mina.core.session.IoSession;
+import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import org.apache.mina.filter.logging.LoggingFilter;
+import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
+
+public class MinaTimeTest {
+	private static final int PORTD = 10002;
+	private static final int PORTU = 10011;
+
+	public static void main(String[] args) throws IOException {
+		// 首先，我们为服务端创建IoAcceptor，NioSocketAcceptor是基于NIO的服务端监听器
+		IoAcceptor acceptor = new NioSocketAcceptor();
+
+		ProtocolCodecFilter coderFilter =
+		// 使用自定义的编码解码filter
+		new ProtocolCodecFilter(new MyCodeFactory());
+
+		// 接着，如结构图示，在Acceptor和IoHandler之间将设置一系列的Fliter
+		// 包括记录过滤器和编解码过滤器。其中TextLineCodecFactory是mina自带的文本解编码器
+		acceptor.getFilterChain().addLast("logger", new LoggingFilter());
+		/*
+		 * acceptor.getFilterChain().addLast("codec", new
+		 * ProtocolCodecFilter((ProtocolCodecFactory) new
+		 * TextLineCodecFactory(Charset.forName("UTF-8"))));
+		 */
+		/* acceptor.getFilterChain().addLast("b",coderFilter); */
+		acceptor.getFilterChain().addLast("codec", coderFilter);
+
+		// 配置事务处理Handler，将请求转由TimeServerHandler处理。
+		// acceptor.setHandler((IoHandler) new TimeServerHandler());
+		acceptor.setHandler(new TimeServerHandler());
+		// 配置Buffer的缓冲区大小
+		acceptor.getSessionConfig().setReadBufferSize(2048);
+		// 设置等待时间，每隔IdleTime将调用一次handler.sessionIdle()方法
+		acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 10);
+		// 绑定端口
+		acceptor.bind(new InetSocketAddress(PORTD));
+		acceptor.bind(new InetSocketAddress(PORTU));
+	}
+
+	static class TimeServerHandler extends IoHandlerAdapter {
+		private final Set<IoSession> sessions = Collections.synchronizedSet(new HashSet<IoSession>());
+
+		IoSession sess10011 = null;
+
+		public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
+			cause.printStackTrace();
+			session.close(true);
+		}
+
+		public void messageReceived(IoSession session, Object message) throws Exception {
+
+			MyMessage msg = (MyMessage) message;
+			byte[] msgtest = msg.getContents();
+			int msgtype = byte2int(subBytes(msgtest, 0, 2));
+			int msgid = byte2int(subBytes(msgtest, 2, 2));
+			String str = new String(subBytes(msgtest, 4, msg.length() - 4));
+
+			String rtid = new String(msg.getrtid());
+			byte upcmd = msg.getCommand();
+
+			/*
+			 * if (str.trim().equalsIgnoreCase("quit")) { session.close(false);
+			 * return; }
+			 */
+			if (upcmd == 0x7c) {
+				session.close(false);
+				return;
+			}
+			// String user = (String) session.getAttribute("user");
+			sessions.add(session);
+			// session.setAttribute("user", user);
+
+			int port = ((InetSocketAddress) session.getLocalAddress()).getPort();
+			if (port == 10002) {
+				session.setAttribute(rtid);
+			} else if (port == 10011) {
+				sess10011 = session;
+			}
+
+			MySQLcode h = new MySQLcode();
+			h.connSQL();
+			Calendar c = Calendar.getInstance();// 可以对每个时间域单独修改
+			int cyear = c.get(Calendar.YEAR);
+			int cmonth = c.get(Calendar.MONTH) + 1;
+			int cday = c.get(Calendar.DATE);
+			int chour = c.get(Calendar.HOUR_OF_DAY);
+			int cminute = c.get(Calendar.MINUTE);
+			int csec = c.get(Calendar.SECOND);
+
+			String insert = "insert into " + rtid + "(cmd,year,month,day,hour,minute,sec,type,devid,message) "
+					+ "values(" + upcmd + "," + cyear + "," + cmonth + "," + cday + "," + chour + "," + cminute + ","
+					+ csec + "," + msgtype + "," + msgid + ",'" + str + "')";
+			if (h.insertSQL(insert) == true) {
+				System.out.println("insert successfully");
+			}
+			//h.deconnSQL();
+
+			if (port == 10002) {
+				session.write(message);
+				if (sess10011 != null)
+					sess10011.write(message);
+			} else if (port == 10011) {
+				sendmessage(msg);
+			}
+
+			// System.out.println("Message written...");
+		}
+
+		public static byte[] subBytes(byte[] src, int begin, int count) {
+			byte[] bs = new byte[count];
+			for (int i = begin; i < begin + count; i++)
+				bs[i - begin] = src[i];
+			return bs;
+		}
+
+		public static int byte2int(byte[] res) {
+			// 一个byte数据左移24位变成0x??000000，再右移8位变成0x00??0000
+
+			int targets = (res[0] & 0xff) | ((res[1] << 8) & 0xff00);
+			return targets;
+		}
+
+		public void sendmessage(MyMessage message) {
+			String rtid = new String(message.getrtid());
+			synchronized (sessions) {
+				for (IoSession session : sessions) {
+					if (session.containsAttribute(rtid)) {
+						session.write(message);
+					}
+				}
+			}
+		}
+
+		public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
+			// System.out.println("IDLE " + session.getIdleCount(status));
+		}
+	}
+}

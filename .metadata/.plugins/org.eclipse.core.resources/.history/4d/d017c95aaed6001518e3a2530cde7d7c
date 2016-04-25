@@ -1,0 +1,75 @@
+package com.web.message;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import com.google.gson.Gson;
+
+public class ChartMessage {
+	private int type;  
+	private String from;  
+	private List<String> to; 
+	private String content; 
+	private String welcome; 
+	private List<String> usernames ; 
+	private List<String> sessionUsernames;
+	private static Gson gson = new Gson();
+	
+	public ChartMessage(){
+		
+	}
+	public ChartMessage(String welcome,List<String> usernames ){
+		this.welcome = welcome;
+		this.usernames = usernames;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	public String getFrom() {
+		return from;
+	}
+	public void setFrom(String from) {
+		this.from = from;
+	}
+	public List<String> getTo() {
+		return to;
+	}
+	public void setTo(List<String> to) {
+		this.to = to;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String time = sdf.format(new Date());
+		this.content = "\r\n\r\n" +time +"\r\n" +from+" said : " + content;
+	}
+	
+	public String getChartMessageToJson(){
+		return gson.toJson(this);
+	}
+	public List<String> getUsernames() {
+		return usernames;
+	}
+	public void setUsernames(List<String> usernames) {
+		this.usernames = usernames;
+	}
+	public String getWelcome() {
+		return welcome;
+	}
+	public void setWelcome(String welcome) {
+		this.welcome = welcome;
+	}
+	public List<String> getSessionUsernames() {
+		return sessionUsernames;
+	}
+	public void setSessionUsernames(List<String> sessionUsernames) {
+		this.sessionUsernames = sessionUsernames;
+	}
+	
+}
