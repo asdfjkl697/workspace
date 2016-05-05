@@ -31,7 +31,7 @@ import javax.websocket.server.ServerEndpoint;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 
-import util.HTMLFilter;
+//import util.HTMLFilter;
 
 @ServerEndpoint(value = "/websocket/chat")
 public class ChatAnnotation {
@@ -59,15 +59,15 @@ public class ChatAnnotation {
 	public void start(Session session) {
 		this.session = session;
 		connections.add(this);
-		String message = String.format("* %s %s", nickname, "has joined.");
-		broadcast(message);
+		//String message = String.format("* %s %s", nickname, "has joined.");
+		//broadcast(message);
 	}
 
 	@OnClose
 	public void end() {
 		connections.remove(this);
-		String message = String.format("* %s %s", nickname, "has disconnected.");
-		broadcast(message);
+		//String message = String.format("* %s %s", nickname, "has disconnected.");
+		//broadcast(message);
 	}
 
 	@OnMessage
@@ -107,8 +107,8 @@ public class ChatAnnotation {
 				} catch (IOException e1) {
 					// Ignore
 				}
-				String message = String.format("* %s %s", client.nickname, "has been disconnected.");
-				broadcast(message);
+				//String message = String.format("* %s %s", client.nickname, "has been disconnected.");
+				//broadcast(message);
 			}
 		}
 	}
@@ -132,13 +132,13 @@ public class ChatAnnotation {
 				} catch (IOException e1) {
 					// Ignore
 				}
-				String message = String.format("* %s %s", client.nickname, "has been disconnected.");
-				broadcast(message);
+				//String message = String.format("* %s %s", client.nickname, "has been disconnected.");
+				//broadcast(message);
 			}
 		}
 	}
 
-	private static void broadcast(String msg) {
+	/*private static void broadcast(String msg) {
 		for (ChatAnnotation client : connections) {
 			try {
 				synchronized (client) {
@@ -156,5 +156,5 @@ public class ChatAnnotation {
 				broadcast(message);
 			}
 		}
-	}
+	}*/
 }

@@ -104,13 +104,14 @@ function RequestUserList(list) {
 	createXMLHttpRequest();
 	var url = "ajax/author_ajax.jsp";
 	postdata = "list="+list;
-
+	
 	XMLHttpReq.open("GET", url, true);
 	XMLHttpReq.onreadystatechange = ResponseList;//指定响应函数
 	
 	XMLHttpReq.open("POST",url,true);
 	XMLHttpReq.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	XMLHttpReq.send(postdata);
+	//alert(postdata);
 }
 
 //处理返回信息函数  

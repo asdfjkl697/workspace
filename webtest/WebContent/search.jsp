@@ -84,8 +84,8 @@ table tr td { border-right:1px solid #000; border-bottom:1px solid #000;}
 										
 			<input class="call" type="submit" value="иорЁ" style="width: 60px"
 				onclick="reduce();sendRequest('sdate','edate','number','devid','pageid')"/> 
-			<input type=text id="pageid" value="1" style="width:32px;text-align:right"/>/
-			<input type=text id="pageall" value="999" style="width:32px;text-align:right"/>
+			<input type=text id="pageid" value="1" style="width:40px;text-align:right"/>/
+			<input type=text id="pageall" value="999" style="width:40px;text-align:right"/>
 			<input class="call" type="submit" value="обрЁ" style="width: 60px" 
 				onclick="add();sendRequest('sdate','edate','number','devid','pageid')"/> 
 			<input type="submit" value="pdf" style="width: 60px" 

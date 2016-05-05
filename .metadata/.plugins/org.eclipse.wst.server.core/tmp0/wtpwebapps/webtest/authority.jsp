@@ -9,10 +9,25 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>TW_WEB</title>
 <style type="text/css">
+
 #Container {
 	/* width: 1200px; */
-	margin: 0 auto; /*设置整个容器在浏览器中水平居中*/
+	margin: 1 auto; /*设置整个容器在浏览器中水平居中*/
 	/* background: #CF3; */
+}
+
+#Header {
+	height: 40px;
+	/* background: #093; */
+}
+
+#logo {
+/* 	padding-left: 50px;
+	padding-top: 20px;
+	padding-bottom: 50px; */
+    padding-left: 1px;
+	padding-top: 1px;
+	padding-bottom: 1px;
 }
 
 #Content {
@@ -141,10 +156,11 @@ a:hover {
 	background: #B1D7EF;
 } */
 </style>
+
 <script src="http://www.codefans.net/ajaxjs/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="js/search.js" charset= "UTF-8"></script>
 <script type="text/javascript" src="js/test.js"></script>
-<!-- <script>
+<script>
 $(document).ready(function(){
 	$(".level1 > a").click(function(){
 		$(this).addClass("current")  //给当前元素添加"current"样式
@@ -161,7 +177,7 @@ $(document).ready(function(){
 		return false;
 	});	
 });
-</script> -->
+</script>
 </head>
 
 <body background="image/DNA.jpg">
@@ -217,11 +233,12 @@ $(document).ready(function(){
 			<ul class="menu">
 				<li class="level1"><a href="#none">用户列表</a>
 					<ul class="level2">
-						<%for(int i=1;i<10;i++){						
+						<%for(int i=1;i<10;i++){	
 						%>
 						<li><a href="#none">TW001001</a></li>
 						<%}%>
-					</ul></li>
+					</ul>
+				</li>
 				<li class="level1"><a href="#none">设备列表</a>
 					<ul class="level2">
 						<li><a href="#none">TW001801</a></li>
@@ -239,8 +256,6 @@ $(document).ready(function(){
 			</div>
 			<div id="title6"
 				style="background-color: #fffff3; line-height: 35px; display: none;">
-<!-- 				<input type="text" id="useridnum" name="useridnum" value="011"
-					style="width: 80px; height: 30px" /> -->
 				<%
 					//int usernum = 8;//Integer.parseInt(useridnumber);
 					String menu6id, select6id, userlistid,userauthid;
@@ -259,7 +274,6 @@ $(document).ready(function(){
 				<%
 					}				
 				%>
-				
 			</div>
 			<div style="line-height: 40px;"
 				onClick="RequestUserList('b');showhide_obj('title7','icon7')">

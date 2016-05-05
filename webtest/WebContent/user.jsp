@@ -54,7 +54,7 @@
 
 #Content-View {
 	height: 500px;
-	width: 220px;
+	width: 300px;
 	margin: 10px; /*设置元素跟其他元素的距离为20像素*/
 	float: left; /*设置浮动，实现多列效果，div+Css布局中很重要的*/
 	/* background: #cc0; */
@@ -305,7 +305,7 @@ input#chat {
 
 			<div id="Content-View">
 				设备编号：<input type="text" id="devid_select"
-					style="width: 80px; height: 30px; margin:5px" readonly="readonly"/> <br /> 
+					style="width: 100px; height: 30px; margin:5px" readonly="readonly"/> <br /> 
 				当前温度: <input type="text" id="dataid1"
 					style="width: 50px; height: 30px; margin:5px" readonly="readonly"/> ℃ <br />
 				当前湿度: <input type="text" id="dataid2"
@@ -327,7 +327,7 @@ input#chat {
 						Javascript! Websockets rely on Javascript being enabled. Please
 						enable Javascript and reload this page!</h2>
 				</div>
-				<div>
+				<div style="display:none">
 					<p>
 						<input type="text" placeholder="type and press enter to chat"
 							id="chat" />
@@ -339,13 +339,16 @@ input#chat {
 			</div>
 			<div id="Content-Set">
 				<br />
-				<input type="text" id="savestate" value="" 
-				style="width: 80px; height: 30px; color: blue; margin:5px" /> <br /> 
+				<!-- <input type="text" id="savestate" value="" 
+				style="width: 80px; height: 30px; color: blue; margin:5px" /> <br />  -->
+				<input class="call" type="submit" value="读取参数" onclick="Sendev('AAH')"
+					style="width: 100px; height: 30px; margin:5px" />
+				&nbsp;&nbsp;&nbsp;&nbsp;
 				<input class="call" type="submit" value="时间校正" onclick="Sendev('AAG')"
 					style="width: 100px; height: 30px" /><br /> 
 
-	  设定压差1: <input type="text" id='setpress' value="30"
-					style="width: 50px; height: 30px; margin:5px" /> Pa 
+	 设定调节压差: <input type="text" id='setpress' value="30"
+					style="width: 50px; height: 30px; margin:5px" /> Pa.
 				<input class="call" type="submit" value="保存" onclick="Sendev2('AB','setpress')"
 					style="width: 50px; height: 30px; margin:5px" /><br /> 
 	 设定灭菌时间: <input type="text" id='setime1' value="50"
@@ -362,8 +365,7 @@ input#chat {
 					style="width: 50px; height: 30px; margin:5px" /><br /> 
 <!-- 				<input class="call" type="submit" value="全部保存" onclick=""
 					style="width: 100px; height: 30px" /> -->
-				<input class="call" type="submit" value="读取" onclick="Sendev('AAH')"
-					style="width: 100px; height: 30px; margin:5px" />
+
 			</div>
 		</div>
 		<!-- <div class="Clear">如何你上面用到float,下面布局开始前最好清除一下。</div> -->
