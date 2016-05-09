@@ -67,17 +67,17 @@
 	font-size: 14px;
 	line-height: 24px;
 	background: #fff;
-}
+} */
 
 form, ul, li, p, h1, h2, h3, h4, h5, h6 {
 	margin: 0;
 	padding: 0;
 }
 
-input, select {
+/* input, select {
 	font-size: 14px;
 	line-height: 18px;
-}
+} */
 
 img {
 	border: 0;
@@ -154,7 +154,7 @@ a:hover {
 }
 .menu li ul.level2 li a.current {
 	background: #B1D7EF;
-} */
+}
 </style>
 
 <script src="http://www.codefans.net/ajaxjs/jquery-1.6.2.min.js"></script>
@@ -173,7 +173,7 @@ $(document).ready(function(){
 		$(this).addClass("current")  //给当前元素添加"current"样式
 		.next().show()  //下一个元素显示
 		.parent().siblings().children("a").removeClass("current")
-		/* .next().hide();  //它们的下一个元素隐藏 */
+		.next().hide();  //它们的下一个元素隐藏 */
 		return false;
 	});	
 });
