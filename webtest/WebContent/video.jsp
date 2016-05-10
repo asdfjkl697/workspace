@@ -162,62 +162,53 @@ a:hover {
 <script type="text/javascript" src="js/search.js" charset="UTF-8"></script>
 <script type="text/javascript" src="js/test.js"></script>
 <script>
-$(document).ready(function(){	
-	$(".level1 > a").click(function(){
-		$.ajax({
-	    type: 'get', cache: false,  
-	    url: 'ajax/author_ajax.jsp',  
-	    data: {list:'b'},  
-	    dataType: 'text',
-		success : function(data) {
-						//var message = data;
-						//alert(data);
-						//var s = data.indexof("response");
-						var st_n=17;
-						var list = data.substring(st_n+1,st_n+2);
-						
-						var msgnum1 = data.substring(st_n+3,st_n+6);
-						//alert(list);
-						var msgnum = Number(msgnum1);
-						$("#userName").val(list);
-						//$("#testaaa").val(list);
-						li[001].innerHTML=list;
-						var listid,authid;
-						if(list=="a"){
-							listid="userlistid";
-							authid="userauthid";
-						}else if(list=="b"){
-							listid="devlistid";
-							authid="devauthid";
-						}
-						
-						/* 
-						for (var i = 1; i < msgnum; i++) {
-							var msglen = st_n + 10 * (i - 1);
+	$(document).ready(function() {
+				$(".level1 > a").click(function() {
+							//var judge=$("this").attr("id");
+							//var judge=$(this).attr("id");
+							var judge = $(this).attr("id")
+							//alert(judge);
+							$.ajax({
+								type : 'get',
+								cache : false,
+								url : 'ajax/author_ajax.jsp',
+								data : {list : judge},
+								dataType : 'text',
+								success : function(data) {
+									var st_n = 17;
+									var list = data.substring(st_n + 1,st_n + 2);
+									var msgnum1 = data.substring(st_n + 3,st_n + 6);
+									var msgnum = Number(msgnum1);
 
-							var userlistid = listid + i;
-							var userauthid = authid + i;
-							$("#userName").val(message.substring(msglen + 6, msglen + 15));
-							//var test = data.substring(msglen + 6, msglen + 15);
-							//alert(test);
+									var listid, authid;
+									if (list == "a") {
+										listid = "userlistid";
+										authid = "userauthid";
+									} else if (list == "b") {
+										listid = "devlistid";
+										authid = "devauthid";
+									}
+									if (msgnum > 10)msgnum = 10;
+									for (var i = 1; i < msgnum; i++) {
+										var msglen = st_n + 10 * (i - 1);
+										$("#devlist" + i).val(data.substring(msglen + 6,msglen + 15));
+									}
+								}
+							});
 
-						} */
-					}
-		});
-		$(this).addClass("current")  //给当前元素添加"current"样式
-		.next().show()  //下一个元素显示
-		.parent().siblings().children("a").removeClass("current")   //父元素的兄弟元素的子元素<a>移除"current"样式
-		.next().hide();  //它们的下一个元素隐藏
-		return false;
-	});
-	$(".level2 > li a").click(function(){
-		$(this).addClass("current")  //给当前元素添加"current"样式
-		//.next().show()  //下一个元素显示
-		.parent().siblings().children("li a").removeClass("current")
-		.next().hide();  //它们的下一个元素隐藏 */
-		return false;
-	});	
-});
+							$(this).addClass("current") //给当前元素添加"current"样式
+							.next().show() //下一个元素显示
+							.parent().siblings().children("a").removeClass("current") //父元素的兄弟元素的子元素<a>移除"current"样式
+							.next().hide(); //它们的下一个元素隐藏
+							return false;
+						});
+
+				$(".level2 > li a").click(function() {
+							$(this).addClass("current") //给当前元素添加"current"样式
+							.parent().siblings().children("a").removeClass("current").next().hide(); //它们的下一个元素隐藏 */
+							return false;
+						});
+			});
 </script>
 
 </head>
@@ -254,22 +245,29 @@ $(document).ready(function(){
 		<div id="Content">
 			<div id="Content-Left">
 				<ul class="menu">
-					<li class="level1"><a href="#none">用户列表</a>
+					<li class="level1" ><a id="a">用户列表</a>
 						<ul class="level2">
 							<%
+								String userlist="";
 								for (int i = 1; i < 10; i++) {
-							%>
-							<li><a href="#none">TW001001</a></li>
-							<%
-								}
-							%>
+									userlist="userlist"+i;
+							%>		
+							<li><a><input id="<%=userlist%>" onfocus="this.blur();"
+								style="border:0px;background-color:transparent;margin:5px;">
+								</a></li>
+							<%}%>	
 						</ul></li>
-					<li class="level1"><a href="#none">设备列表</a>
-						<ul class="level2">							
-							<li id="001"><a id='testaab'></a></li>
-							<li><div id="testaaa"></div></li>
-							<li><a href="#none">TW001803</a></li>
-							<li><a href="#none">TW001804</a></li>
+					<li class="level1" ><a id='b'>设备列表</a>
+						<ul class="level2">	
+							<%
+								String devlist="";
+								for (int i = 1; i < 10; i++) {
+									devlist="devlist"+i;
+							%>		
+							<li><a><input id="<%=devlist%>" onfocus="this.blur();"
+								style="border:0px;background-color:transparent;margin:5px;">
+								</a></li>
+							<%}%>			
 						</ul></li>
 				</ul>
 			</div>
