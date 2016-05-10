@@ -221,7 +221,7 @@ a:hover {
 			return;
 		}
 		//java.util.Date d = new java.util.Date();
-		String datetime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format( new java.util.Date());
+		String datetime=new SimpleDateFormat("yyyy-MM-dd").format( new java.util.Date());
 		//String name = request.getParameter("userName"); // 接收表单参数
 		boolean value7 = false;
 	%>

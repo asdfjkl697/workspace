@@ -163,10 +163,7 @@ a:hover {
 <script>
 	$(document).ready(function() {
 				$(".level1 > a").click(function() {
-							//var judge=$("this").attr("id");
-							//var judge=$(this).attr("id");
 							var judge = $(this).attr("id")
-							//alert(judge);
 							$.ajax({
 								type : 'get',
 								cache : false,
@@ -176,14 +173,10 @@ a:hover {
 								success : function(data) {
 									var st_n = 17;
 									var list = data.substring(st_n + 1,st_n + 2);
-									var msgnum1 = data.substring(st_n + 3,st_n + 6);
-									var msgnum = Number(msgnum1);
-									alert(msgnum);
-									//if (msgnum > 11)msgnum = 11;
-									var listid, authid;
+									//var msgnum1 = data.substring(st_n + 3,st_n + 6);
+									var msgnum = Number(data.substring(st_n + 3,st_n + 6));
+
 									if (list == "a") {
-										//listid = "userlistid";
-										//authid = "userauthid";
 										for (var i = 1; i < 11; i++) {
 											var msglen = st_n + 10 * (i - 1);
 											if(i>msgnum) $("#userlist" + i).val("");
@@ -191,8 +184,6 @@ a:hover {
 											
 										}
 									} else if (list == "b") {
-										//listid = "devlistid";
-										//authid = "devauthid";
 										for (var i = 1; i < 11; i++) {
 											var msglen = st_n + 10 * (i - 1);
 											if(i>msgnum) $("#devlist" + i).val("");
@@ -210,6 +201,16 @@ a:hover {
 						});
 
 				$(".level2 > li a").click(function() {
+							var selectname = $(this).children("input").val();
+							//alert(name);
+							var type = Number(selectname.substring(5,6));
+							if(type>=8)
+								$("#devName").val(selectname.substring(5,8));
+							else{
+								$("#userName").val(selectname.substring(5,8));
+								$("#userPWD").val("*****");
+								$("#author").val("*");
+							}						
 							$(this).addClass("current") //给当前元素添加"current"样式
 							.parent().siblings().children("a").removeClass("current").next().hide(); //它们的下一个元素隐藏 */
 							return false;
@@ -246,7 +247,8 @@ a:hover {
 		}
 		
 		//java.util.Date d = new java.util.Date();
-		String datetime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format( new java.util.Date());
+		//String datetime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format( new java.util.Date());
+		String datetime=new SimpleDateFormat("yyyy-MM-dd").format( new java.util.Date());
 		//String name = request.getParameter("userName"); // 接收表单参数
 		boolean value7 = false;
 	%>
@@ -272,12 +274,14 @@ a:hover {
 					<li class="level1" ><a id="a">用户列表</a>
 						<ul class="level2">
 							<%
-								String userlist="";
+								String userlist="",userauth="";
 								for (int i = 1; i < 11; i++) {
 									userlist="userlist"+i;
-							%>		
+									userauth="userauth"+i;
+							%>	
+								
 							<li><a><input id="<%=userlist%>" onfocus="this.blur();"
-								style="border:0px;background-color:transparent;margin:5px;">
+								style="border:0px;background-color:transparent;margin:5px;">								
 								</a></li>
 							<%}%>	
 						</ul></li>
@@ -295,60 +299,6 @@ a:hover {
 						</ul></li>
 				</ul>
 			</div>
-
-		<%-- <div id="Content-Main">
-			<div style="line-height: 40px;"
-				onClick="RequestUserList('a');showhide_obj('title6','icon6')">
-				<font id='icon6'>+</font>用户列表
-			</div>
-			<div id="title6"
-				style="background-color: #fffff3; line-height: 35px; display: none;">
-				<%
-					//int usernum = 8;//Integer.parseInt(useridnumber);
-					String menu6id, select6id, userlistid,userauthid;
-					for (int i = 1; i < 10; i++) {
-						//for (int i = 1; i <usernum ; i++) {
-						menu6id = "menu6_" + i;
-						select6id = "select6_" + i;
-						userlistid = "userlistid" + i;
-						userauthid = "userauthid" + i;
-				%>
-				<span id=<%=menu6id%> onclick="show_userid('<%=userlistid%>','<%=userauthid%>');show_this('<%=select6id%>')">
-					<font id='<%=select6id%>'></font> 
-					<font id='<%=userlistid%>'></font> 
-					<input id='<%=userauthid%>' type="hidden">
-				</span><br />
-				<%
-					}				
-				%>
-			</div>
-			<div style="line-height: 40px;"
-				onClick="RequestUserList('b');showhide_obj('title7','icon7')">
-				<font id='icon7'>+</font>设备列表
-			</div>
-			<div id="title7"
-				style="background-color: #fffff3; line-height: 35px; display: none;">
-				<%
-					//int usernum = 8;//Integer.parseInt(useridnumber);
-					String menu7id, select7id, devlistid,devauthid;
-					for (int i = 1; i < 10; i++) {
-						//for (int i = 1; i <usernum ; i++) {
-						menu7id = "menu7_" + i;
-						select7id = "select7_" + i;
-						devlistid = "devlistid" + i;
-						devauthid = "devauthid" + i;
-				%>
-				<span id=<%=menu7id%> onclick="show_devid('<%=devlistid%>');show_this('<%=select7id%>')">
-					<font id='<%=select7id%>'></font> 
-					<font id='<%=devlistid%>'></font> 
-					<input id='<%=devauthid%>' type="hidden">
-				</span><br />
-				<%
-					}				
-				%>
-				
-			</div>
-		</div> --%>
 
 		<div id="Content-Veiw">
 			<table><tr>

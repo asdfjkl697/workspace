@@ -38,7 +38,7 @@
 
 #Content-Left {
 	height: 500px;
-	width: 100px;
+	width: 120px;
 	margin: 10px; /*设置元素跟其他元素的距离为20像素*/
 	float: left; /*设置浮动，实现多列效果，div+Css布局中很重要的*/
 	/* background: #cc0; */
@@ -99,6 +99,101 @@ input#chat {
 
 .Clear {
 	clear: both;
+}
+
+/* body {
+	margin: 0;
+	padding: 0 0 12px 0;
+	font-size: 14px;
+	line-height: 24px;
+	background: #fff;
+} */
+
+form, ul, li, p, h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+}
+
+/* input, select {
+	font-size: 14px;
+	line-height: 18px;
+} */
+
+img {
+	border: 0;
+}
+
+ul li{
+	list-style-type: none;
+}
+
+a {
+	color: #00007F;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #bd0a01;
+	text-decoration: underline;
+}
+
+.box {
+	width: 150px;
+	margin: 0 auto;
+}
+
+.menu {
+	overflow: hidden;
+	border-color: #C4D5DF;
+	border-style: solid;
+	border-width: 0 1px 1px;
+}
+
+.menu li.level1 a {
+	display: block;
+	height: 28px;
+	line-height: 28px;
+	background: #EBF3F8;
+	font-weight: 700;
+	color: #5893B7;
+	text-indent: 14px;
+	border-top: 1px solid #C4D5DF;
+}
+
+.menu li.level1 a:hover {
+	text-decoration: none;
+}
+
+.menu li.level1 a.current {
+	background: #B1D7EF;
+}
+
+
+.menu li ul {
+	overflow: hidden;
+}
+
+.menu li ul.level2 {
+	display: none;
+}
+
+.menu li ul.level2 li a {
+	display: block;
+	height: 28px;
+	line-height: 28px;
+	background: #ffffff;
+	font-weight: 400;
+	color: #42556B;
+	text-indent: 18px;
+	border-top: 0px solid #ffffff;
+	overflow: hidden; 
+}
+
+.menu li ul.level2 li a:hover {
+	text-decoration: none;
+}
+.menu li ul.level2 li a.current {
+	background: #B1D7EF;
 }
 </style>
 
@@ -207,8 +302,60 @@ input#chat {
 		}
 	}, false);
 </script>
+<script src="js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="js/search.js" charset= "UTF-8"></script>
 <script type="text/javascript" src="js/test.js"></script>
+<script>
+	$(document).ready(function() {
+				$(".level1 > a").click(function() {
+							var judge = $(this).attr("id")
+							$.ajax({
+								type : 'get',
+								cache : false,
+								url : 'ajax/author_ajax.jsp',
+								data : {list : judge},
+								dataType : 'text',
+								success : function(data) {
+									var st_n = 17;
+									var list = data.substring(st_n + 1,st_n + 2);
+									var msgnum = Number(data.substring(st_n + 3,st_n + 6));
+
+									if (list == "a") {
+										for (var i = 1; i < 11; i++) {
+											var msglen = st_n + 10 * (i - 1);
+											if(i>msgnum) $("#userlist" + i).val("");
+											else $("#userlist" + i).val(data.substring(msglen + 6,msglen + 15));
+											
+										}
+									} else if (list == "b") {
+										for (var i = 1; i < 11; i++) {
+											var msglen = st_n + 10 * (i - 1);
+											if(i>msgnum) $("#devlist" + i).val("");
+											else $("#devlist" + i).val(data.substring(msglen + 6,msglen + 15));
+										}
+									}
+								}
+							});
+
+							$(this).addClass("current") //给当前元素添加"current"样式
+							.next().show() //下一个元素显示
+							.parent().siblings().children("a").removeClass("current") //父元素的兄弟元素的子元素<a>移除"current"样式
+							.next().hide(); //它们的下一个元素隐藏
+							return false;
+						});
+
+				$(".level2 > li a").click(function() {
+
+							var selectname = $(this).children("input").val();
+							$("#devid_select").val(selectname.substring(0,8));
+							Sendev('AAZ');
+			
+							$(this).addClass("current") //给当前元素添加"current"样式
+							.parent().siblings().children("a").removeClass("current").next().hide(); //它们的下一个元素隐藏 */
+							return false;
+						});
+			});
+</script>
 </head>
 
 <body background="image/DNA.jpg">
@@ -219,7 +366,7 @@ input#chat {
 			return;
 		}
 		//java.util.Date d = new java.util.Date();
-		String datetime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format( new java.util.Date());
+		String datetime=new SimpleDateFormat("yyyy-MM-dd").format( new java.util.Date());
 		//String name = request.getParameter("userName"); // 接收表单参数
 		boolean value7 = false;
 	%>
@@ -241,35 +388,23 @@ input#chat {
 			</div>
 		</div>
 		<div id="Content">
-			<div id="Content-Left">
-				<div style="line-height: 40px;"
-				onClick="RequestUserList('b');showhide_obj('title3','icon3')">
-				<font id='icon3'>+</font>设备列表
+		<div id="Content-Left">
+				<ul class="menu">
+					<li class="level1" ><a id='b'>设备列表</a>
+						<ul class="level2">	
+							<%
+								String devlist="";
+								for (int i = 1; i < 11; i++) {
+									devlist="devlist"+i;
+							%>		
+							<li><a><input id="<%=devlist%>" onfocus="this.blur();"
+								style="border:0px;background-color:transparent;margin:5px;">
+								</a></li>
+							<%}%>			
+						</ul></li>
+				</ul>
 			</div>
-			<div id="title3"
-				style="background-color: #fffff3; line-height: 35px; display: none;">
-				<%
-					//int usernum = 8;//Integer.parseInt(useridnumber);
-					String menu3id, select3id, devlistid,devauthid;
-					for (int i = 1; i < 10; i++) {
-						//for (int i = 1; i <usernum ; i++) {
-						menu3id = "menu3_" + i;
-						select3id = "select3_" + i;
-						devlistid = "devlistid" + i;
-						devauthid = "devauthid" + i;
-				%>
-				<span id=<%=menu3id%> onclick="show_devid_all('<%=devlistid%>');Sendev('AAZ');show_this('<%=select3id%>')">
-					<font id='<%=select3id%>'></font> 
-					<font id='<%=devlistid%>'></font> 
-					<input id='<%=devauthid%>' type="hidden">
-				</span><br />
-				<%
-					}				
-				%>
-				
-			</div>
-				<br />
-			</div>
+			
 			<div id="Content-Main" >
 				<div id="button1" style="margin:5px">
 					<input class="call" type="submit" value=" 自动运行 "
