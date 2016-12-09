@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=gb2312"%>
+<%-- <%@ page contentType="text/html; charset=gb2312"%> --%>
+<%@ page contentType="text/html; charset=utf-8"%>
 <%@ page language="java"%>
 <%@ page import="com.mysql.jdbc.Driver"%>
 <%@ page import="java.sql.*"%>
@@ -7,44 +8,121 @@
 <%@ page import="console.pdf.CreatePDF"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>TW_WEB</title>
+<title>æ•°æ®æŸ¥è¯¢</title>
 <style type="text/css">
 table tr td { border-right:1px solid #000; border-bottom:1px solid #000;}
 #Container {
 	/* width: 1200px; */
-	margin: 1 auto; /*ÉèÖÃÕû¸öÈİÆ÷ÔÚä¯ÀÀÆ÷ÖĞË®Æ½¾ÓÖĞ*/
+	margin: 1 auto; /*è®¾ç½®æ•´ä¸ªå®¹å™¨åœ¨æµè§ˆå™¨ä¸­æ°´å¹³å±…ä¸­*/
 	/* background: #CF3; */
 }
 
 #Header {
-	height: 40px;
-	/* background: #093; */
+	width:100%; 
+	height: 30px;
+	line-height:30px; 
+	/* background-color:#99ffff; */
+	FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=2,startColorStr=#99ffaa,endColorStr=#99aaff); /*IE*/
+	background:-moz-linear-gradient(left,#99ffaa,#99aaff);/*ç«ç‹*/
+	background:-webkit-gradient(linear, 0% 0%, 100% 0%,from(#99ffaa), to(#99aaff));/*è°·æ­Œ*/ 
+}
+#Name {	
+	padding-left: 30px;	
+	width: 200px;
+	float: left; 
+}
+
+#Timer {
+	padding-right: 30px;
+	width: 300px;
+	float: right;
 }
 
 #logo {
-/* 	padding-left: 50px;
-	padding-top: 20px;
-	padding-bottom: 50px; */
-    padding-left: 1px;
-	padding-top: 1px;
-	padding-bottom: 1px;
+    padding-left: 2px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 #Content-View {
 	height: 500px;
 	width: 1000px;
-	margin: 10px; /*ÉèÖÃÔªËØ¸úÆäËûÔªËØµÄ¾àÀëÎª20ÏñËØ*/
-	float: left; /*ÉèÖÃ¸¡¶¯£¬ÊµÏÖ¶àÁĞĞ§¹û£¬div+Css²¼¾ÖÖĞºÜÖØÒªµÄ*/
+	margin: 10px; /*è®¾ç½®å…ƒç´ è·Ÿå…¶ä»–å…ƒç´ çš„è·ç¦»ä¸º20åƒç´ */
+	float: left; /*è®¾ç½®æµ®åŠ¨ï¼Œå®ç°å¤šåˆ—æ•ˆæœï¼Œdiv+Csså¸ƒå±€ä¸­å¾ˆé‡è¦çš„*/
 	/* background: #cc0; */
 }
+form, ul, li, p, h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+}
 
+img {
+	border: 0;
+}
+
+ul li{
+	list-style-type: none;
+}
+
+a {
+	color: #00007F;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #bd0a01;
+	text-decoration: underline;
+}
+
+.box {
+	width: 150px;
+	margin: 0 auto;
+}
+
+.menul {
+	overflow: hidden;
+	border-color: #C4D5DF;
+	border-style: solid;
+	border-width: 0 1px 1px;
+}
+
+.menul li.levela {
+	float:left;
+	margin: 0px 2px 0px 2px;
+	width: 100px;
+}
+
+.menul li.levela a {
+	display: block;
+	height: 28px;
+	line-height: 28px;
+	background: #EBF3F8;
+	font-weight: 700;
+	color: #5893B7;
+	/* text-indent: 14px; */
+	text-align:center;
+	/* border-top: 1px solid #C4D5DF; */
+	border: 1px solid #C4D5DF;
+}
+
+.menul li.levela a:hover {
+	text-decoration: none;
+}
+
+.menul li.level1a a.current {
+	background: #B1D7EF;
+}
+
+.menul li ul {
+	overflow: hidden;
+}
 </style>
 <script type="text/javascript" src="js/search.js" charset= "UTF-8"></script>
 <script type="text/javascript" src="js/hsdate.js" charset= "UTF-8"></script>
-<script type="text/javascript" src="js/test.js" charset= "UTF-8"></script>
+<script type="text/javascript" src="js/functions.js" charset= "UTF-8"></script>
 </head>
 
-<body>
+<body onload="sendRequest('sdate','edate','number','devid','pageid')">
 	<%
 		String name = (String) session.getAttribute("userid");
 		if (session.getAttribute("userid") == null) {
@@ -53,57 +131,61 @@ table tr td { border-right:1px solid #000; border-bottom:1px solid #000;}
 		}
 		//java.util.Date d = new java.util.Date();
 		String datetime=new SimpleDateFormat("yyyy-MM-dd").format( new java.util.Date());
-		//String name = request.getParameter("userName"); // ½ÓÊÕ±íµ¥²ÎÊı
+		//String name = request.getParameter("userName"); // æ¥æ”¶è¡¨å•å‚æ•°
 		boolean value7 = false;
 	%>
 
 	<div id="Container">
-		<div id="Header">
-			<div id="logo" style="font-size: 20px">
-				<input type="button" value="ÔËĞĞ½çÃæ" style="margin:1px;width: 120px; height: 30px; background: #ADD8E6" 
-					onclick="href_new('user.jsp')">  
-				<input type="button" value="Êı¾İ²éÑ¯" style="margin:1px;width: 120px; height: 30px; background: #EDD8E6" 
-					onclick="href_new('search.jsp')"> 
-				<input type="button" value="Êı¾İ·ÖÎö" style="margin:1px; width: 120px; height: 30px; background: #ADD8E6"
-					onclick="href_new('line.jsp')"> 
-				<input type="button" value="ÊÓÆµ" style="margin:1px; width: 120px; height: 30px; background: #ADD8E6"
-					onclick="href_new('video.jsp')"> 
-				<input type="button" value="¹ÜÀíÔ±" style="margin:1px; width: 120px; height: 30px; background: #ADD8E6"
-					onclick="href_new('authority.jsp')"> 
-				ÓÃ»§Ãû£º<%=name%> Ê±¼ä£º<%=datetime%>
-			</div>
+		<div id="Header" >
+			<div id="Name" style="color: #5893B7"><h3>è”èˆŸæŠ€æœ¯</h3></div>
+			<div id="Timer">
+				ç”¨æˆ·åï¼š<%=name%>
+				æ—¥æœŸï¼š<%=datetime%></div>
+		</div>
+		<div id="logo">
+			<ul class="menul">
+					<li class="levela" ><a onclick="href_new('user.jsp')" >éš”ç¦»å™¨</a></li>					
+					<li class="levela" ><a onclick="href_new('video.jsp')" >è§†é¢‘ç›´æ’­</a></li>
+					<li class="levela" ><a onclick="href_new('jiont.jsp')"  >ä¸­äº§äº¤äº’å™¨</a></li>
+					<li class="levela" ><a onclick="href_new('jiontreq.jsp')" >ä¸­äº§ç»ˆç«¯</a></li>
+					<li class="levela" ><a onclick="href_new('line.jsp')" >æ•°æ®åˆ†æ</a></li>
+					<li class="levela" ><a onclick="href_new('search.jsp')" style="background: #EDD8E6">æ•°æ®æŸ¥è¯¢</a></li>									
+					<li class="levela" ><a onclick="href_new('upgrade.jsp')" >è¿œç¨‹å‡çº§</a></li>
+					<li class="levela" ><a onclick="href_new('record.jsp')" >ä»‹ç»</a></li>		
+					<li class="levela" ><a onclick="href_new('authority.jsp')" >ç®¡ç†ç™»å½•</a></li>
+			</ul>
 		</div>
 
 		<div id="Content-View">
-            ¿ªÊ¼:<input type="text" id='sdate' value=<%=datetime%> style="width:90px" onfocus="HS_setDate(this)">           
-            ½áÊø:<input type="text" id='edate' value=<%=datetime%> style="width:90px" onfocus="HS_setDate(this)">
-			ÅúºÅ:<input type="text" id="number" style="width:50px;text-align:right"/>
-			Éè±¸:<input type=text id="devid" style="width:50px;text-align:right"/> 
-				<input type="submit" value="²éÑ¯" style="width:60px"
+            å¼€å§‹:<input type="text" id='sdate' value=<%=datetime%> style="width:90px" onfocus="HS_setDate(this)">           
+            ç»“æŸ:<input type="text" id='edate' value=<%=datetime%> style="width:90px" onfocus="HS_setDate(this)">
+			æ‰¹å·:<input type="text" id="number" style="width:50px;text-align:right"/>
+			è®¾å¤‡:<input type=text id="devid" style="width:50px;text-align:right"/> 
+				<input type="submit" value="æŸ¥è¯¢" style="width:60px"
 				onclick="sendRequest('sdate','edate','number','devid','pageid')"/>
 										
-			<input class="call" type="submit" value="ÉÏÒ³" style="width: 60px"
+			<input class="call" type="submit" value="ä¸Šé¡µ" style="width: 60px"
 				onclick="reduce();sendRequest('sdate','edate','number','devid','pageid')"/> 
 			<input type=text id="pageid" value="1" style="width:40px;text-align:right"/>/
 			<input type=text id="pageall" value="999" style="width:40px;text-align:right"/>
-			<input class="call" type="submit" value="ÏÂÒ³" style="width: 60px" 
+			<input class="call" type="submit" value="ä¸‹é¡µ" style="width: 60px" 
 				onclick="add();sendRequest('sdate','edate','number','devid','pageid')"/> 
 			<input type="submit" value="pdf" style="width: 60px" 
 				onclick="sendpara('sdate','edate','number','devid')"/> 
 			<table>
 				<tr>
-					<td width="100">ÈÕÆÚ</td>
-					<td width="100">Ê±¼ä</td>
-					<td width="80">Éè±¸ºÅ</td>
-					<td width="80">ÅúºÅ</td>
-					<td width="80">ÎÂ¶È¡æ</td>
-					<td width="80">Êª¶È%RH</td>
-					<td width="80">Ñ¹²îPa</td>
-					<td width="80">Å¨¶Èppm</td>
-					<td width="80">·çËÙm/s</td>
-					<td width="80">Ê±¼ämin</td>
-					<td width="80">×´Ì¬</td>
-					<td width="80">ÃüÁî</td>
+					<td width="100">æ—¥æœŸ</td>
+					<td width="100">æ—¶é—´</td>
+					<td width="80">è®¾å¤‡å·</td>
+					<td width="80">æ‰¹å·</td>
+					<td width="80">æ¸©åº¦â„ƒ</td>
+					<td width="80">æ¹¿åº¦%RH</td>
+					<td width="80">å‹å·®Pa</td>
+					<td width="80">æµ“åº¦ppm</td>
+					<td width="80">é£é€Ÿm/s</td>
+					<td width="80">æ—¶é—´min</td>
+					<td width="80">çŠ¶æ€</td>
+					<td width="80">å‘½ä»¤</td>
 				</tr>
 
 				<%
@@ -142,6 +224,7 @@ table tr td { border-right:1px solid #000; border-bottom:1px solid #000;}
 		</div>
 	</div>
 </body>
+
 
 
 

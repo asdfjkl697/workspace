@@ -1,0 +1,5 @@
+127.0.0.1 - - [09/Aug/2016:18:14:22 +0800] "GET / HTTP/1.1" 404 951
+127.0.0.1 - - [09/Aug/2016:18:14:33 +0800] "GET /webtest/jiont.jsp HTTP/1.1" 200 15689
+127.0.0.1 - - [09/Aug/2016:18:14:33 +0800] "GET /webtest/websocket/chat HTTP/1.1" 101 -
+127.0.0.1 - - [09/Aug/2016:18:14:33 +0800] "GET /favicon.ico HTTP/1.1" 404 973
+127.0.0.1 - - [09/Aug/2016:18:14:35 +0800] "GET /webtest/ajax/author_ajax.jsp?list=b&_=1470737674823 HTTP/1.1" 200 177

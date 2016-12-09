@@ -1,62 +1,79 @@
-<%@ page contentType="text/html; charset=gb2312"%>
+<%-- <%@ page contentType="text/html; charset=gb2312"%> --%>
+<%@ page contentType="text/html; charset=utf-8"%>
 <%@ page language="java"%>
 <%@ page import="com.mysql.jdbc.Driver"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="java.net.Socket"%>
 <%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="util.TestLogger"%>
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>TW_WEB</title>
+<title>è”èˆŸæŠ€æœ¯</title>
 <style type="text/css">
 #Container {
 	/* width: 1200px; */
-	margin: 1 auto; /*ÉèÖÃÕû¸öÈİÆ÷ÔÚä¯ÀÀÆ÷ÖĞË®Æ½¾ÓÖĞ*/
+	margin: 1 auto; /*è®¾ç½®æ•´ä¸ªå®¹å™¨åœ¨æµè§ˆå™¨ä¸­æ°´å¹³å±…ä¸­*/
 	/* background: #CF3; */
 }
 
 #Header {
-	height: 40px;
-	/* background: #093; */
+	width:100%; 
+	height: 30px;
+	line-height:30px; 
+	/* background-color:#99ffff; */
+	filter: 
+	progid:DXImageTransform.Microsoft.gradient(GradientType=2,startColorStr='#99ffaa',endColorStr='#99aaff'); /*IE*/
+	background:linear-gradient(to left, #99ffaa, #99aaff);
+	background:-moz-linear-gradient(left,#99ffaa,#99aaff);/*ç«ç‹*/
+	background:-webkit-gradient(linear, 0% 0%, 100% 0%,from(#99ffaa), to(#99aaff));/*è°·æ­Œ*/ 
+}
+#Name {	
+	padding-left: 30px;	
+	width: 200px;
+	float: left; 
+}
+
+#Timer {
+	padding-right: 30px;
+	width: 300px;
+	float: right;
 }
 
 #logo {
-/* 	padding-left: 50px;
-	padding-top: 20px;
-	padding-bottom: 50px; */
-    padding-left: 1px;
-	padding-top: 1px;
-	padding-bottom: 1px;
+    padding-left: 2px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 #Content {
 	height: 540px;
-	/*´Ë´¦¶ÔÈİÆ÷ÉèÖÃÁË¸ß¶È£¬Ò»°ã²»½¨Òé¶ÔÈİÆ÷ÉèÖÃ¸ß¶È£¬Ò»°ãÊ¹ÓÃoverflow:auto;ÊôĞÔÉèÖÃÈİÆ÷¸ù¾İÄÚÈİ×ÔÊÊÓ¦¸ß¶È£¬Èç¹û²»Ö¸¶¨¸ß¶È»ò²»ÉèÖÃ×ÔÊÊÓ¦¸ß¶È£¬ÈİÆ÷½«Ä¬ÈÏÎª1¸ö×Ö·û¸ß¶È£¬ÈİÆ÷ÏÂ·½µÄ²¼¾ÖÔªËØ£¨footer£©ÉèÖÃmargin-top:ÊôĞÔ½«ÎŞĞ§*/
-	margin-top: 1px; /*´Ë´¦½²½âmarginµÄÓÃ·¨£¬ÉèÖÃcontentÓëÉÏÃæheaderÔªËØÖ®¼äµÄ¾àÀë*/
+	/*æ­¤å¤„å¯¹å®¹å™¨è®¾ç½®äº†é«˜åº¦ï¼Œä¸€èˆ¬ä¸å»ºè®®å¯¹å®¹å™¨è®¾ç½®é«˜åº¦ï¼Œä¸€èˆ¬ä½¿ç”¨overflow:auto;å±æ€§è®¾ç½®å®¹å™¨æ ¹æ®å†…å®¹è‡ªé€‚åº”é«˜åº¦ï¼Œå¦‚æœä¸æŒ‡å®šé«˜åº¦æˆ–ä¸è®¾ç½®è‡ªé€‚åº”é«˜åº¦ï¼Œå®¹å™¨å°†é»˜è®¤ä¸º1ä¸ªå­—ç¬¦é«˜åº¦ï¼Œå®¹å™¨ä¸‹æ–¹çš„å¸ƒå±€å…ƒç´ ï¼ˆfooterï¼‰è®¾ç½®margin-top:å±æ€§å°†æ— æ•ˆ*/
+	margin-top: 1px; /*æ­¤å¤„è®²è§£marginçš„ç”¨æ³•ï¼Œè®¾ç½®contentä¸ä¸Šé¢headerå…ƒç´ ä¹‹é—´çš„è·ç¦»*/
 	/* background: #0FF; */
 }
 
 #Content-Left {
 	height: 500px;
 	width: 120px;
-	margin: 10px; /*ÉèÖÃÔªËØ¸úÆäËûÔªËØµÄ¾àÀëÎª20ÏñËØ*/
-	float: left; /*ÉèÖÃ¸¡¶¯£¬ÊµÏÖ¶àÁĞĞ§¹û£¬div+Css²¼¾ÖÖĞºÜÖØÒªµÄ*/
+	margin: 10px; /*è®¾ç½®å…ƒç´ è·Ÿå…¶ä»–å…ƒç´ çš„è·ç¦»ä¸º20åƒç´ */
+	float: left; /*è®¾ç½®æµ®åŠ¨ï¼Œå®ç°å¤šåˆ—æ•ˆæœï¼Œdiv+Csså¸ƒå±€ä¸­å¾ˆé‡è¦çš„*/
 	/* background: #cc0; */
 }
 
 #Content-Main {
 	height: 500px;
 	width: 150px;
-	margin: 10px; /*ÉèÖÃÔªËØ¸úÆäËûÔªËØµÄ¾àÀëÎª20ÏñËØ*/
-	float: left; /*ÉèÖÃ¸¡¶¯£¬ÊµÏÖ¶àÁĞĞ§¹û£¬div+Css²¼¾ÖÖĞºÜÖØÒªµÄ*/
+	margin: 10px; /*è®¾ç½®å…ƒç´ è·Ÿå…¶ä»–å…ƒç´ çš„è·ç¦»ä¸º20åƒç´ */
+	float: left; /*è®¾ç½®æµ®åŠ¨ï¼Œå®ç°å¤šåˆ—æ•ˆæœï¼Œdiv+Csså¸ƒå±€ä¸­å¾ˆé‡è¦çš„*/
 	/* background: #cc0; */
 }
 
 #Content-View {
 	height: 500px;
 	width: 300px;
-	margin: 10px; /*ÉèÖÃÔªËØ¸úÆäËûÔªËØµÄ¾àÀëÎª20ÏñËØ*/
-	float: left; /*ÉèÖÃ¸¡¶¯£¬ÊµÏÖ¶àÁĞĞ§¹û£¬div+Css²¼¾ÖÖĞºÜÖØÒªµÄ*/
+	margin: 10px; /*è®¾ç½®å…ƒç´ è·Ÿå…¶ä»–å…ƒç´ çš„è·ç¦»ä¸º20åƒç´ */
+	float: left; /*è®¾ç½®æµ®åŠ¨ï¼Œå®ç°å¤šåˆ—æ•ˆæœï¼Œdiv+Csså¸ƒå±€ä¸­å¾ˆé‡è¦çš„*/
 	/* background: #cc0; */
 }
 
@@ -85,12 +102,12 @@ input#chat {
 #Content-Set {
 	height: 500px;
 	width: 300px;
-	margin: 10px; /*ÉèÖÃÔªËØ¸úÆäËûÔªËØµÄ¾àÀëÎª20ÏñËØ*/
-	float: left; /*ÉèÖÃ¸¡¶¯£¬ÊµÏÖ¶àÁĞĞ§¹û£¬div+Css²¼¾ÖÖĞºÜÖØÒªµÄ*/
+	margin: 10px; /*è®¾ç½®å…ƒç´ è·Ÿå…¶ä»–å…ƒç´ çš„è·ç¦»ä¸º20åƒç´ */
+	float: left; /*è®¾ç½®æµ®åŠ¨ï¼Œå®ç°å¤šåˆ—æ•ˆæœï¼Œdiv+Csså¸ƒå±€ä¸­å¾ˆé‡è¦çš„*/
 	/* background: #cc0; */
 }
 
-/*×¢£ºContent-LeftºÍContent-MainÔªËØÊÇContentÔªËØµÄ×ÓÔªËØ£¬Á½¸öÔªËØÊ¹ÓÃÁËfloat:left;ÉèÖÃ³ÉÁ½ÁĞ£¬Õâ¸öÁ½¸öÔªËØµÄ¿í¶ÈºÍÕâ¸öÁ½¸öÔªËØÉèÖÃµÄpadding¡¢marginµÄºÍÒ»¶¨²»ÄÜ´óÓÚ¸¸²ãContentÔªËØµÄ¿í¶È£¬·ñÔòÉèÖÃÁĞ½«Ê§°Ü*/
+/*æ³¨ï¼šContent-Leftå’ŒContent-Mainå…ƒç´ æ˜¯Contentå…ƒç´ çš„å­å…ƒç´ ï¼Œä¸¤ä¸ªå…ƒç´ ä½¿ç”¨äº†float:left;è®¾ç½®æˆä¸¤åˆ—ï¼Œè¿™ä¸ªä¸¤ä¸ªå…ƒç´ çš„å®½åº¦å’Œè¿™ä¸ªä¸¤ä¸ªå…ƒç´ è®¾ç½®çš„paddingã€marginçš„å’Œä¸€å®šä¸èƒ½å¤§äºçˆ¶å±‚Contentå…ƒç´ çš„å®½åº¦ï¼Œå¦åˆ™è®¾ç½®åˆ—å°†å¤±è´¥*/
 #Footer {
 	height: 40px;
 	/* background: #90C; */
@@ -195,6 +212,45 @@ a:hover {
 .menu li ul.level2 li a.current {
 	background: #B1D7EF;
 }
+
+.menul {
+	overflow: hidden;
+	border-color: #C4D5DF;
+	border-style: solid;
+	border-width: 0 1px 1px;
+}
+
+.menul li.levela {
+	float:left;
+	margin: 0px 2px 0px 2px;
+	width: 100px;
+}
+
+.menul li.levela a {
+	display: block;
+	height: 28px;
+	line-height: 28px;
+	background: #EBF3F8;
+	font-weight: 700;
+	color: #5893B7;
+	/* text-indent: 14px; */
+	text-align:center;
+	/* border-top: 1px solid #C4D5DF; */
+	border: 1px solid #C4D5DF;
+}
+
+.menul li.levela a:hover {
+	text-decoration: none;
+}
+
+.menul li.levela a.current {
+	background: #B1D7EF;
+}
+
+
+.menul li ul {
+	overflow: hidden;
+}
 </style>
 
 <script type="text/javascript">
@@ -228,7 +284,7 @@ a:hover {
 
             Chat.socket.onmessage = function (message) {
                 Console.log(message.data);
-                humidity(message.data);
+                showmessage(message.data);
             };
         });
 
@@ -253,16 +309,15 @@ a:hover {
         
     function Sendev(data){
     	var s = "<%=(String) session.getAttribute("userid")%>";
-    	var e = document.getElementById("devid_select").value
-
+    	var e = $("#devid_select").val();
 		var message = s.substring(0,5)+e.substring(5,8)+s.substring(5,8)+ ':tran:'+e+':'+data;
 		Chat.socket.send(message);
     }
     
     function Sendev2(data,paraid){
     	var s = "<%=(String) session.getAttribute("userid")%>";
-    	var e = document.getElementById("devid_select").value
-    	var f = document.getElementById(paraid).value
+    	var e = $("#devid_select").val();
+    	var f = $("#"+paraid).val();
 
 		var message = s.substring(0,5)+e.substring(5,8)+s.substring(5,8)+ ':tran:'+e+':'+data+f;	
 		Chat.socket.send(message);
@@ -282,14 +337,23 @@ a:hover {
 		console.scrollTop = console.scrollHeight;
 	});
 
-	function humidity(message) {
-		document.getElementById('dataid1').value = message.substring(0, 2)+"."+message.substring(2, 3);
-		document.getElementById('dataid2').value = message.substring(3, 5)+"."+message.substring(5, 6);
-		document.getElementById('dataid3').value = message.substring(6, 9)+"."+message.substring(9, 10);
-		document.getElementById('dataid4').value = message.substring(10, 14);
-		document.getElementById('dataid5').value = message.substring(14, 15)+"."+message.substring(15, 17);
-		document.getElementById('dataid6').value = message.substring(17, 20);
-		document.getElementById('dataid7').value = message.substring(20, 21);
+	function showmessage(message) {
+		$("#devid_status").val("online");
+		$("#dataid1").val(message.substring(0, 2)+"."+message.substring(2, 3));
+		$("#dataid2").val(message.substring(3, 5)+"."+message.substring(5, 6));
+		$("#dataid3").val(message.substring(6, 9)+"."+message.substring(9, 10));
+		$("#dataid4").val(message.substring(10, 14));
+		$("#dataid5").val(message.substring(14, 15)+"."+message.substring(15, 17));
+		$("#dataid6").val(message.substring(17, 20));
+		$("#dataid7").val(message.substring(20, 21));
+
+		var devstatus=Number(message.substring(20, 21));
+		for(var i=1;i<7;i++){
+			if((i==devstatus+1)&&(devstatus>0))
+				$("#button"+i).css("background","#4A708B");
+			else
+				$("#button"+i).css("background","#ADD8E6");
+		}		
 	}
 
 	Chat.initialize();
@@ -301,159 +365,208 @@ a:hover {
 			noscripts[i].parentNode.removeChild(noscripts[i]);
 		}
 	}, false);
+	
+	
+	function showdevlist() {
+		$.ajax({
+			type : 'get',
+			cache : false,
+			url : 'ajax/author_ajax.jsp',
+			data : {list : 'b'},
+			dataType : 'text',
+			success : function(data) {
+				var st_n = 17;
+				//var list = data.substring(st_n + 1,st_n + 2);
+				var msgnum = Number(data.substring(st_n + 3, st_n + 6));
+
+				for (var i = 1; i < 30; i++) {
+					var msglen = st_n + 10 * (i - 1);
+					if (i > msgnum)
+						$("#devlist" + i).parent().css("display", "none");
+					//$("#devlist"+i).val("");								
+					else
+						$("#devlist" + i).val(
+								data.substring(msglen + 6, msglen + 15));
+				}
+			}
+		});
+
+		$(".level1 > a").addClass("current") //ç»™å½“å‰å…ƒç´ æ·»åŠ "current"æ ·å¼
+		.next().show() //ä¸‹ä¸€ä¸ªå…ƒç´ æ˜¾ç¤º
+		.parent().siblings().children("a").removeClass("current") //çˆ¶å…ƒç´ çš„å…„å¼Ÿå…ƒç´ çš„å­å…ƒç´ <a>ç§»é™¤"current"æ ·å¼
+		.next().hide(); //å®ƒä»¬çš„ä¸‹ä¸€ä¸ªå…ƒç´ éšè—
+		return false;
+	}
 </script>
 <script src="js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="js/search.js" charset= "UTF-8"></script>
-<script type="text/javascript" src="js/test.js"></script>
+<script type="text/javascript" src="js/functions.js"></script>
 <script>
 	$(document).ready(function() {
 				$(".level1 > a").click(function() {
-							var judge = $(this).attr("id")
 							$.ajax({
 								type : 'get',
 								cache : false,
 								url : 'ajax/author_ajax.jsp',
-								data : {list : judge},
+								data : {list:'b'},
 								dataType : 'text',
 								success : function(data) {
 									var st_n = 17;
-									var list = data.substring(st_n + 1,st_n + 2);
+									//var list = data.substring(st_n + 1,st_n + 2);
 									var msgnum = Number(data.substring(st_n + 3,st_n + 6));
 
-									if (list == "a") {
-										for (var i = 1; i < 11; i++) {
-											var msglen = st_n + 10 * (i - 1);
-											if(i>msgnum) $("#userlist" + i).val("");
-											else $("#userlist" + i).val(data.substring(msglen + 6,msglen + 15));
-											
-										}
-									} else if (list == "b") {
-										for (var i = 1; i < 11; i++) {
-											var msglen = st_n + 10 * (i - 1);
-											if(i>msgnum) $("#devlist" + i).val("");
-											else $("#devlist" + i).val(data.substring(msglen + 6,msglen + 15));
-										}
-									}
+									for (var i = 1; i < 30; i++) {
+										var msglen = st_n + 10 * (i - 1);
+										if (i > msgnum)
+											$("#devlist"+i).parent().css("display","none");
+											//$("#devlist"+i).val("");								
+										else
+											$("#devlist"+i).val(data.substring(msglen+6,msglen+15));
+									}									
 								}
 							});
 
-							$(this).addClass("current") //¸øµ±Ç°ÔªËØÌí¼Ó"current"ÑùÊ½
-							.next().show() //ÏÂÒ»¸öÔªËØÏÔÊ¾
-							.parent().siblings().children("a").removeClass("current") //¸¸ÔªËØµÄĞÖµÜÔªËØµÄ×ÓÔªËØ<a>ÒÆ³ı"current"ÑùÊ½
-							.next().hide(); //ËüÃÇµÄÏÂÒ»¸öÔªËØÒş²Ø
+							$(this).addClass("current") //ç»™å½“å‰å…ƒç´ æ·»åŠ "current"æ ·å¼
+							.next().show() //ä¸‹ä¸€ä¸ªå…ƒç´ æ˜¾ç¤º
+							.parent().siblings().children("a").removeClass(
+									"current") //çˆ¶å…ƒç´ çš„å…„å¼Ÿå…ƒç´ çš„å­å…ƒç´ <a>ç§»é™¤"current"æ ·å¼
+							.next().hide(); //å®ƒä»¬çš„ä¸‹ä¸€ä¸ªå…ƒç´ éšè—
 							return false;
 						});
 
 				$(".level2 > li a").click(function() {
-
 							var selectname = $(this).children("input").val();
-							$("#devid_select").val(selectname.substring(0,8));
-							Sendev('AAZ');
-			
-							$(this).addClass("current") //¸øµ±Ç°ÔªËØÌí¼Ó"current"ÑùÊ½
-							.parent().siblings().children("a").removeClass("current").next().hide(); //ËüÃÇµÄÏÂÒ»¸öÔªËØÒş²Ø */
+							$("#devid_status").val("offline");
+							for(var i=1;i<8;i++)$("#dataid"+i).val("");
+							for(var i=1;i<7;i++)$("#button"+i).css("background","#ADD8E6");
+							$("#devid_select").val(selectname.substring(0, 8));
+							Sendev('AAZ'); //send to dev request message add by jyc 20160511			
+							$(this).addClass("current") //ç»™å½“å‰å…ƒç´ æ·»åŠ "current"æ ·å¼
+							.parent().siblings().children("a").removeClass(
+									"current").next().hide(); //å®ƒä»¬çš„ä¸‹ä¸€ä¸ªå…ƒç´ éšè— */
 							return false;
 						});
 			});
 </script>
 </head>
 
-<body background="image/DNA.jpg">
+<body background="image/DNA.jpg" onload="showdevlist()">
 	<%
-		String name = (String) session.getAttribute("userid");
+		String datetime=new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss").format( new java.util.Date());
+		String name = null;	
 		if (session.getAttribute("userid") == null) {
-			response.sendRedirect("index.jsp");
-			return;
+			session.setAttribute("userid", "TW001083");
+			name = (String) session.getAttribute("userid");
+			String addr=request.getRemoteAddr(); 
+			String message = datetime+" "+name+" login IP:"+addr;
+			String date = datetime.substring(0,10);			
+			TestLogger.logfun(date,message);
 		}
-		//java.util.Date d = new java.util.Date();
-		String datetime=new SimpleDateFormat("yyyy-MM-dd").format( new java.util.Date());
-		//String name = request.getParameter("userName"); // ½ÓÊÕ±íµ¥²ÎÊı
+		name = (String) session.getAttribute("userid");
+
+		datetime=new SimpleDateFormat("yyyy-MM-dd").format( new java.util.Date());
+
 		boolean value7 = false;
 	%>
 
+
 	<div id="Container">
-		<div id="Header">
-			<div id="logo" style="font-size: 20px">
-				<input type="button" value="ÔËĞĞ½çÃæ" style="margin:1px;width: 120px; height: 30px; background: #EDD8E6" 
-					onclick="href_new('user.jsp')">  
-				<input type="button" value="Êı¾İ²éÑ¯" style="margin:1px;width: 120px; height: 30px; background: #ADD8E6" 
-					onclick="href_new('search.jsp')"> 
-				<input type="button" value="Êı¾İ·ÖÎö" style="margin:1px; width: 120px; height: 30px; background: #ADD8E6"
-					onclick="href_new('line.jsp')"> 
-				<input type="button" value="ÊÓÆµ" style="margin:1px; width: 120px; height: 30px; background: #ADD8E6"
-					onclick="href_new('video.jsp')"> 
-				<input type="button" value="¹ÜÀíÔ±" style="margin:1px; width: 120px; height: 30px; background: #ADD8E6"
-					onclick="href_new('authority.jsp')"> 
-				ÓÃ»§Ãû£º<%=name%> Ê±¼ä£º<%=datetime%>
-			</div>
+		<div id="Header" >
+			<div id="Name" style="color: #5893B7"><h3>è”èˆŸæŠ€æœ¯</h3></div>
+			<div id="Timer">
+				ç”¨æˆ·åï¼š<%=name%>
+				æ—¥æœŸï¼š<%=datetime%></div>
 		</div>
+		<div id="logo">
+			<ul class="menul">
+					<li class="levela" ><a onclick="href_new('user.jsp')" style="background: #EDD8E6">éš”ç¦»å™¨</a></li>					
+					<li class="levela" ><a onclick="href_new('video.jsp')" >è§†é¢‘ç›´æ’­</a></li>
+					<li class="levela" ><a onclick="href_new('jiont.jsp')"  >ä¸­äº§äº¤äº’å™¨</a></li>
+					<li class="levela" ><a onclick="href_new('jiontreq.jsp')" >ä¸­äº§ç»ˆç«¯</a></li>
+					<li class="levela" ><a onclick="href_new('line.jsp')" >æ•°æ®åˆ†æ</a></li>
+					<li class="levela" ><a onclick="href_new('search.jsp')" >æ•°æ®æŸ¥è¯¢</a></li>									
+					<li class="levela" ><a onclick="href_new('upgrade.jsp')" >è¿œç¨‹å‡çº§</a></li>
+					<li class="levela" ><a onclick="href_new('record.jsp')" >ä»‹ç»</a></li>		
+					<li class="levela" ><a onclick="href_new('authority.jsp')" >ç®¡ç†ç™»å½•</a></li>
+			</ul>
+		</div>
+
 		<div id="Content">
 		<div id="Content-Left">
 				<ul class="menu">
-					<li class="level1" ><a id='b'>Éè±¸ÁĞ±í</a>
+					<li class="level1" ><a id='b'>è®¾å¤‡åˆ—è¡¨</a>
 						<ul class="level2">	
 							<%
 								String devlist="";
-								for (int i = 1; i < 11; i++) {
+								for (int i = 1; i < 30; i++) {
 									devlist="devlist"+i;
 							%>		
 							<li><a><input id="<%=devlist%>" onfocus="this.blur();"
 								style="border:0px;background-color:transparent;margin:5px;">
 								</a></li>
-							<%}%>			
-						</ul></li>
+							<%}%>		
+						</ul>
+					</li>
 				</ul>
+
 			</div>
 			
-			<div id="Content-Main" >
-				<div id="button1" style="margin:5px">
-					<input class="call" type="submit" value=" ×Ô¶¯ÔËĞĞ "
+			<div id="Content-Main">
+				<div style="margin:5px">
+					<input class="call" type="submit" value=" è‡ªåŠ¨è¿è¡Œ " id="button1"
 						onclick="Sendev('AAA')"
 						style="width: 80px; height: 40px; background: #ADD8E6" />
 				</div>
-				<div id="button2" style="margin:5px">
-					<input class="call" type="submit" value="   ³ıÊª   " 
+				<div style="margin:5px">
+					<input class="call" type="submit" value="   é™¤æ¹¿   " id="button2"
 						onclick="Sendev('AAB')"
 						style="width: 80px; height: 40px; background: #ADD8E6" />
 				</div>
-				<div id="button3" style="margin:5px">
-					<input class="call" type="submit" value="   ¼ÓÒ©   "
+				<div style="margin:5px">
+					<input class="call" type="submit" value="   åŠ è¯   " id="button3"
 						onclick="Sendev('AAC')"
 						style="width: 80px; height: 40px; background: #ADD8E6" />
 				</div>
-				<div id="button4" style="margin:5px">
-					<input class="call" type="submit" value=" Ãğ¾ú±£³Ö "
+				<div style="margin:5px">
+					<input class="call" type="submit" value=" ç­èŒä¿æŒ " id="button4"
 						onclick="Sendev('AAD')"
 						style="width: 80px; height: 40px; background: #ADD8E6" />
 				</div>
-				<div id="button5" style="margin:5px">
-					<input class="call" type="submit" value="   Í¨·ç   "
+				<div style="margin:5px">
+					<input class="call" type="submit" value="   é€šé£   " id="button5"
 						onclick="Sendev('AAE')"
 						style="width: 80px; height: 40px; background: #ADD8E6" />
 				</div>
-				<div id="button6" style="margin:5px">
-					<input class="call" type="submit" value="   ±£Ñ¹   "
+				<div style="margin:5px">
+					<input class="call" type="submit" value="   ä¿å‹   " id="button6"
 						onclick="Sendev('AAF')"
+						style="width: 80px; height: 40px; background: #ADD8E6" />
+				</div>
+				<div style="margin:5px">
+					<input class="call" type="submit" value="   åœæ­¢   " id="button7"
+						onclick="Sendev('AAG')"
 						style="width: 80px; height: 40px; background: #ADD8E6" />
 				</div>
 			</div>
 
 			<div id="Content-View">
-				Éè±¸±àºÅ£º<input type="text" id="devid_select"
+				è®¾å¤‡çŠ¶æ€: <input type="text" id="devid_status" value="offline"
+					style="width: 100px; height: 30px; margin:5px" readonly="readonly"/> <br />
+				è®¾å¤‡ç¼–å·: <input type="text" id="devid_select"
 					style="width: 100px; height: 30px; margin:5px" readonly="readonly"/> <br /> 
-				µ±Ç°ÎÂ¶È: <input type="text" id="dataid1"
-					style="width: 50px; height: 30px; margin:5px" readonly="readonly"/> ¡æ <br />
-				µ±Ç°Êª¶È: <input type="text" id="dataid2"
+				å½“å‰æ¸©åº¦: <input type="text" id="dataid1"
+					style="width: 50px; height: 30px; margin:5px" readonly="readonly"/> â„ƒ <br />
+				å½“å‰æ¹¿åº¦: <input type="text" id="dataid2"
 					style="width: 50px; height: 30px; margin:5px" readonly="readonly"/> RH%<br /> 
-				µ±Ç°Ñ¹²î: <input type="text" id="dataid3"
+				å½“å‰å‹å·®: <input type="text" id="dataid3"
 					style="width: 50px; height: 30px; margin:5px" readonly="readonly"/> Pa<br />
-				µ±Ç°Å¨¶È: <input type="text" id="dataid4"
+				å½“å‰æµ“åº¦: <input type="text" id="dataid4"
 					style="width: 50px; height: 30px; margin:5px" readonly="readonly"/> PPM<br /> 
-				µ±Ç°·çËÙ: <input type="text" id="dataid5" 
+				å½“å‰é£é€Ÿ: <input type="text" id="dataid5" 
 					style="width: 50px; height: 30px; margin:5px" readonly="readonly"/> m/s<br /> 
-				³ÖĞøÊ±¼ä: <input type="text" id="dataid6"
+				æŒç»­æ—¶é—´: <input type="text" id="dataid6"
 					style="width: 50px; height: 30px; margin:5px" readonly="readonly"/> min<br />
-				µ±Ç°×´Ì¬: <input type="text" id="dataid7" 
+				å½“å‰çŠ¶æ€: <input type="text" id="dataid7" 
 					style="width: 50px; height: 30px; margin:5px" readonly="readonly"/><br /> 
 
 			
@@ -476,35 +589,36 @@ a:hover {
 				<br />
 				<!-- <input type="text" id="savestate" value="" 
 				style="width: 80px; height: 30px; color: blue; margin:5px" /> <br />  -->
-				<input class="call" type="submit" value="¶ÁÈ¡²ÎÊı" onclick="Sendev('AAH')"
+				<input class="call" type="submit" value="è¯»å–å‚æ•°" onclick="Sendev('AAH')"
 					style="width: 100px; height: 30px; margin:5px" />
 				&nbsp;&nbsp;&nbsp;&nbsp;
-				<input class="call" type="submit" value="Ê±¼äĞ£Õı" onclick="Sendev('AAG')"
+				<input class="call" type="submit" value="æ—¶é—´æ ¡æ­£" onclick="Sendev('AAJ')"
 					style="width: 100px; height: 30px" /><br /> 
 
-	 Éè¶¨µ÷½ÚÑ¹²î: <input type="text" id='setpress' value="30"
+	 è®¾å®šè°ƒèŠ‚å‹å·®: <input type="text" id='setpress' value="30"
 					style="width: 50px; height: 30px; margin:5px" /> Pa.
-				<input class="call" type="submit" value="±£´æ" onclick="Sendev2('AB','setpress')"
+				<input class="call" type="submit" value="ä¿å­˜" onclick="Sendev2('AB','setpress')"
 					style="width: 50px; height: 30px; margin:5px" /><br /> 
-	 Éè¶¨Ãğ¾úÊ±¼ä: <input type="text" id='setime1' value="50"
+	 è®¾å®šç­èŒæ—¶é—´: <input type="text" id='setime1' value="50"
 					style="width: 50px; height: 30px; margin:5px" /> min 
-				 <input class="call" type="submit" value="±£´æ" onclick="Sendev2('AC','setime1')"
+				 <input class="call" type="submit" value="ä¿å­˜" onclick="Sendev2('AC','setime1')"
 					style="width: 50px; height: 30px; margin:5px" /><br /> 
-	 Éè¶¨Í¨·çÊ±¼ä: <input 	type="text" id='setime2' value="50"
+	 è®¾å®šé€šé£æ—¶é—´: <input 	type="text" id='setime2' value="50"
 					style="width: 50px; height: 30px; margin:5px" /> min 
-				<input class="call" type="submit" value="±£´æ" onclick="Sendev2('AD','setime2')"
+				<input class="call" type="submit" value="ä¿å­˜" onclick="Sendev2('AD','setime2')"
 					style="width: 50px; height: 30px; margin:5px" /><br /> 
-	 Éè¶¨±£Ñ¹Ê±¼ä: <input type="text" id='setime3' value="50"
+	 è®¾å®šä¿å‹æ—¶é—´: <input type="text" id='setime3' value="50"
 					style="width: 50px; height: 30px; margin:5px" /> min 
-				<input class="call" type="submit" value="±£´æ" onclick="Sendev2('AE','setime3')"
+				<input class="call" type="submit" value="ä¿å­˜" onclick="Sendev2('AE','setime3')"
 					style="width: 50px; height: 30px; margin:5px" /><br /> 
-<!-- 				<input class="call" type="submit" value="È«²¿±£´æ" onclick=""
+<!-- 				<input class="call" type="submit" value="å…¨éƒ¨ä¿å­˜" onclick=""
 					style="width: 100px; height: 30px" /> -->
 
 			</div>
 		</div>
-		<!-- <div class="Clear">ÈçºÎÄãÉÏÃæÓÃµ½float,ÏÂÃæ²¼¾Ö¿ªÊ¼Ç°×îºÃÇå³ıÒ»ÏÂ¡£</div> -->
-		<div id="Footer">Footer</div>
+		<!-- <div class="Clear">å¦‚ä½•ä½ ä¸Šé¢ç”¨åˆ°float,ä¸‹é¢å¸ƒå±€å¼€å§‹å‰æœ€å¥½æ¸…é™¤ä¸€ä¸‹ã€‚</div> -->
+		<div id="Footer" style="font-size:12px;color:#5893B7">
+		Â©2016 lianzhouiot 22960468@qq.com</div>
 
 	</div>
 

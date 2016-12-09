@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%-- <%@ page contentType="text/html; charset=gb2312"%> --%>
+<%@ page contentType="text/html; charset=utf-8"%>
 <%@ page language="java"%>
 <%@ page import="com.mysql.jdbc.Driver"%>
 <%@ page import="java.sql.*"%>
@@ -6,13 +7,110 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="console.pdf.CreatePDF"%>
 
-<html>
-	<head>
-		<title>Line Chart</title>
-		<script src="js/Chart.js"></script>
-		<script type="text/javascript" src="js/test.js" charset= "UTF-8"></script>
-	</head>
-	<body>
+<head>
+<title>图表</title>
+
+<style type="text/css">
+
+#Header {
+	width:100%; 
+	height: 30px;
+	line-height:30px; 
+	/* background-color:#99ffff; */
+	FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=2,startColorStr=#99ffaa,endColorStr=#99aaff); /*IE*/
+	background:-moz-linear-gradient(left,#99ffaa,#99aaff);/*火狐*/
+	background:-webkit-gradient(linear, 0% 0%, 100% 0%,from(#99ffaa), to(#99aaff));/*谷歌*/ 
+}
+#Name {	
+	padding-left: 30px;	
+	width: 200px;
+	float: left; 
+}
+
+#Timer {
+	padding-right: 30px;
+	width: 300px;
+	float: right;
+}
+
+#logo {
+    padding-left: 2px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+
+form, ul, li, p, h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	border: 0;
+}
+
+ul li {
+	list-style-type: none;
+}
+
+a {
+	color: #00007F;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #bd0a01;
+	text-decoration: underline;
+}
+
+.box {
+	width: 150px;
+	margin: 0 auto;
+}
+
+.menul {
+	overflow: hidden;
+	border-color: #C4D5DF;
+	border-style: solid;
+	border-width: 0 1px 1px;
+}
+
+.menul li.levela {
+	float: left;
+	margin: 0px 2px 0px 2px;
+	width: 100px;
+}
+
+.menul li.levela a {
+	display: block;
+	height: 28px;
+	line-height: 28px;
+	background: #EBF3F8;
+	font-weight: 700;
+	color: #5893B7;
+	/* text-indent: 14px; */
+	text-align: center;
+	/* border-top: 1px solid #C4D5DF; */
+	border: 1px solid #C4D5DF;
+}
+
+.menul li.levela a:hover {
+	text-decoration: none;
+}
+
+.menul li.levela a.current {
+	background: #B1D7EF;
+}
+
+.menul li ul {
+	overflow: hidden;
+}
+</style>
+
+<script src="js/Chart.js"></script>
+<script type="text/javascript" src="js/functions.js" charset="UTF-8"></script>
+</head>
+<body>
 	<%
 		String name = (String) session.getAttribute("userid");
 		if (session.getAttribute("userid") == null) {
@@ -22,56 +120,53 @@
 		//java.util.Date d = new java.util.Date();
 		String datetime = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
 		//String name = request.getParameter("userName"); // 接收表单参数
-		boolean value7 = false;
 	%>
-	<div id="Header">
-		<div id="logo" style="font-size: 20px">
-			<input type="button" value="运行界面" style="margin:1px;width: 120px; height: 30px; background: #ADD8E6" 
-				onclick="href_new('user.jsp')">  
-			<input type="button" value="数据查询" style="margin:1px;width: 120px; height: 30px; background: #ADD8E6" 
-				onclick="href_new('search.jsp')"> 
-			<input type="button" value="数据分析" style="margin:1px; width: 120px; height: 30px; background: #EDD8E6"
-				onclick="href_new('line.jsp')"> 
-			<input type="button" value="视频" style="margin:1px; width: 120px; height: 30px; background: #ADD8E6"
-				onclick="href_new('video.jsp')"> 
-			<input type="button" value="管理员" style="margin:1px; width: 120px; height: 30px; background: #ADD8E6"
-				onclick="href_new('authority.jsp')"> 
-			用户名：<%=name%> 时间：<%=datetime%>
+	<div id="Header" >
+			<div id="Name" style="color: #5893B7"><h3>联舟技术</h3></div>
+			<div id="Timer">
+				用户名：<%=name%>
+				日期：<%=datetime%></div>
 		</div>
-	</div>
+	<div id="logo">
+			<ul class="menul">
+					<li class="levela" ><a onclick="href_new('user.jsp')" >隔离器</a></li>					
+					<li class="levela" ><a onclick="href_new('video.jsp')" >视频直播</a></li>
+					<li class="levela" ><a onclick="href_new('jiont.jsp')"  >中产交互器</a></li>
+					<li class="levela" ><a onclick="href_new('jiontreq.jsp')" >中产终端</a></li>
+					<li class="levela" ><a onclick="href_new('line.jsp')" style="background: #EDD8E6">数据分析</a></li>
+					<li class="levela" ><a onclick="href_new('search.jsp')" >数据查询</a></li>									
+					<li class="levela" ><a onclick="href_new('upgrade.jsp')" >远程升级</a></li>
+					<li class="levela" ><a onclick="href_new('record.jsp')" >介绍</a></li>		
+					<li class="levela" ><a onclick="href_new('authority.jsp')" >管理登录</a></li>
+			</ul>
+		</div>
 	<div>
-		
+		<br/>
 		开始:<input type="text" id='sdate' value=<%=datetime%>
 			style="width: 90px" onfocus="HS_setDate(this)"> 
-		结束:<input type="text" id='edate' value=<%=datetime%> 
+		结束:<input 	type="text" id='edate' value=<%=datetime%> 
 			style="width: 90px" onfocus="HS_setDate(this)"> 
 		批号:<input type="text" id="number" style="width: 50px; text-align: right" /> 
-		设备:<input type=text id="devid" style="width: 50px; text-align: right" /> 
-	 <label><input type="checkbox" name="check">温度</label>
-	 <label><input type="checkbox" name="check">湿度</label>
-	 <label><input type="checkbox" name="check">压差</label>
-	 <label><input type="checkbox" name="check">浓度</label>
-	 <label><input type="checkbox" name="check">风速</label>
-			<input type="submit" value="查询" style="width: 60px"
-			onclick="" /> 
-			<input class="call" type="submit" value="放大" style="width: 60px"
-			onclick="" />
+		设备:<input type="text" 	id="devid" style="width: 50px; text-align: right" /> 
+			<label><input type="checkbox" name="check">温度</label> 
+			<label><input type="checkbox" name="check">湿度</label> 
+			<label><input type="checkbox" name="check">压差</label> 
+			<label><input type="checkbox" name="check">浓度</label>
+			<label><input type="checkbox" name="check">风速</label>
+			<input type="submit" value="查询" style="width: 60px" onclick="" /> 
+			<input class="call" type="submit" value="放大" style="width: 60px" onclick="" /> 
 			<input type=text id="pageid" value="1" style="width: 40px; text-align: right" /> 
-			<input class="call" type="submit" value="缩小" style="width: 60px"
-			onclick="" />
-
-			<input type="submit" value="分析" style="width: 60px"
-			onclick="" />
+			<input class="call" type="submit" value="缩小" style="width: 60px" onclick="" /> 
+			<input type="submit" value="分析" style="width: 60px" onclick="" />
 	</div>
-	<div style="width:100%">
-			<div>
-				<!-- <canvas id="canvas" height="450" width="600"></canvas> -->
-				<canvas id="canvas" height="450" width="900"></canvas>
-			</div>
+	<div style="width: 100%">
+		<div>
+			<!-- <canvas id="canvas" height="450" width="600"></canvas> -->
+			<canvas id="canvas" height="450" width="900"></canvas>
 		</div>
+	</div>
 
 	<script>
-
 		var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
 		var treeCol=new Array();
 		for(var i=0;i<10;i++){
@@ -253,5 +348,4 @@
 			window.myLine = new Chart(ctx).Line(lineChartData, options);
 		}
 	</script>
-	</body>
-</html>
+</body>

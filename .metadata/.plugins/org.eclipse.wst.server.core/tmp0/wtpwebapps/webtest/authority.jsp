@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=gb2312"%>
+<%-- <%@ page contentType="text/html; charset=gb2312"%> --%>
+<%@ page contentType="text/html; charset=utf-8"%>
 <%@ page language="java"%>
 <%@ page import="com.mysql.jdbc.Driver"%>
 <%@ page import="java.sql.*"%>
@@ -7,77 +8,77 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>TW_WEB</title>
+<title>ç®¡ç†å‘˜</title>
 <style type="text/css">
 
 #Container {
 	/* width: 1200px; */
-	margin: 1 auto; /*ÉèÖÃÕû¸öÈİÆ÷ÔÚä¯ÀÀÆ÷ÖĞË®Æ½¾ÓÖĞ*/
+	margin: 1 auto; /*è®¾ç½®æ•´ä¸ªå®¹å™¨åœ¨æµè§ˆå™¨ä¸­æ°´å¹³å±…ä¸­*/
 	/* background: #CF3; */
 }
 
 #Header {
-	height: 40px;
-	/* background: #093; */
+	width:100%; 
+	height: 30px;
+	line-height:30px; 
+	/* background-color:#99ffff; */
+	FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=2,startColorStr=#99ffaa,endColorStr=#99aaff); /*IE*/
+	background:-moz-linear-gradient(left,#99ffaa,#99aaff);/*ç«ç‹*/
+	background:-webkit-gradient(linear, 0% 0%, 100% 0%,from(#99ffaa), to(#99aaff));/*è°·æ­Œ*/ 
+}
+#Name {	
+	padding-left: 30px;	
+	width: 200px;
+	float: left; 
+}
+
+#Timer {
+	padding-right: 30px;
+	width: 300px;
+	float: right;
 }
 
 #logo {
-/* 	padding-left: 50px;
-	padding-top: 20px;
-	padding-bottom: 50px; */
-    padding-left: 1px;
-	padding-top: 1px;
-	padding-bottom: 1px;
+    padding-left: 2px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 #Content {
 	height: 540px;
-	/*´Ë´¦¶ÔÈİÆ÷ÉèÖÃÁË¸ß¶È£¬Ò»°ã²»½¨Òé¶ÔÈİÆ÷ÉèÖÃ¸ß¶È£¬Ò»°ãÊ¹ÓÃoverflow:auto;ÊôĞÔÉèÖÃÈİÆ÷¸ù¾İÄÚÈİ×ÔÊÊÓ¦¸ß¶È£¬Èç¹û²»Ö¸¶¨¸ß¶È»ò²»ÉèÖÃ×ÔÊÊÓ¦¸ß¶È£¬ÈİÆ÷½«Ä¬ÈÏÎª1¸ö×Ö·û¸ß¶È£¬ÈİÆ÷ÏÂ·½µÄ²¼¾ÖÔªËØ£¨footer£©ÉèÖÃmargin-top:ÊôĞÔ½«ÎŞĞ§*/
-	margin-top: 20px; /*´Ë´¦½²½âmarginµÄÓÃ·¨£¬ÉèÖÃcontentÓëÉÏÃæheaderÔªËØÖ®¼äµÄ¾àÀë*/
+	/*æ­¤å¤„å¯¹å®¹å™¨è®¾ç½®äº†é«˜åº¦ï¼Œä¸€èˆ¬ä¸å»ºè®®å¯¹å®¹å™¨è®¾ç½®é«˜åº¦ï¼Œä¸€èˆ¬ä½¿ç”¨overflow:auto;å±æ€§è®¾ç½®å®¹å™¨æ ¹æ®å†…å®¹è‡ªé€‚åº”é«˜åº¦ï¼Œå¦‚æœä¸æŒ‡å®šé«˜åº¦æˆ–ä¸è®¾ç½®è‡ªé€‚åº”é«˜åº¦ï¼Œå®¹å™¨å°†é»˜è®¤ä¸º1ä¸ªå­—ç¬¦é«˜åº¦ï¼Œå®¹å™¨ä¸‹æ–¹çš„å¸ƒå±€å…ƒç´ ï¼ˆfooterï¼‰è®¾ç½®margin-top:å±æ€§å°†æ— æ•ˆ*/
+	margin-top: 20px; /*æ­¤å¤„è®²è§£marginçš„ç”¨æ³•ï¼Œè®¾ç½®contentä¸ä¸Šé¢headerå…ƒç´ ä¹‹é—´çš„è·ç¦»*/
 	/* background: #0FF; */
 }
 
 #Content-Left {
 	height: 500px;
 	width: 120px;
-	margin: 20px; /*ÉèÖÃÔªËØ¸úÆäËûÔªËØµÄ¾àÀëÎª20ÏñËØ*/
-	float: left; /*ÉèÖÃ¸¡¶¯£¬ÊµÏÖ¶àÁĞĞ§¹û£¬div+Css²¼¾ÖÖĞºÜÖØÒªµÄ*/
+	margin: 20px; /*è®¾ç½®å…ƒç´ è·Ÿå…¶ä»–å…ƒç´ çš„è·ç¦»ä¸º20åƒç´ */
+	float: left; /*è®¾ç½®æµ®åŠ¨ï¼Œå®ç°å¤šåˆ—æ•ˆæœï¼Œdiv+Csså¸ƒå±€ä¸­å¾ˆé‡è¦çš„*/
 	/* background: #cc0; */
 }
 
 #Content-Main {
 	height: 500px;
 	width: 160px;
-	margin: 20px; /*ÉèÖÃÔªËØ¸úÆäËûÔªËØµÄ¾àÀëÎª20ÏñËØ*/
-	float: left; /*ÉèÖÃ¸¡¶¯£¬ÊµÏÖ¶àÁĞĞ§¹û£¬div+Css²¼¾ÖÖĞºÜÖØÒªµÄ*/
+	margin: 20px; /*è®¾ç½®å…ƒç´ è·Ÿå…¶ä»–å…ƒç´ çš„è·ç¦»ä¸º20åƒç´ */
+	float: left; /*è®¾ç½®æµ®åŠ¨ï¼Œå®ç°å¤šåˆ—æ•ˆæœï¼Œdiv+Csså¸ƒå±€ä¸­å¾ˆé‡è¦çš„*/
 	/* background: #cc0; */
 }
 
 #Content-View {
 	height: 500px;
 	width: 500px;
-	margin: 20px; /*ÉèÖÃÔªËØ¸úÆäËûÔªËØµÄ¾àÀëÎª20ÏñËØ*/
-	float: left; /*ÉèÖÃ¸¡¶¯£¬ÊµÏÖ¶àÁĞĞ§¹û£¬div+Css²¼¾ÖÖĞºÜÖØÒªµÄ*/
+	margin: 20px; /*è®¾ç½®å…ƒç´ è·Ÿå…¶ä»–å…ƒç´ çš„è·ç¦»ä¸º20åƒç´ */
+	float: left; /*è®¾ç½®æµ®åŠ¨ï¼Œå®ç°å¤šåˆ—æ•ˆæœï¼Œdiv+Csså¸ƒå±€ä¸­å¾ˆé‡è¦çš„*/
 	/* background: #cc0; */
 }
-
-/* body {
-	margin: 0;
-	padding: 0 0 12px 0;
-	font-size: 14px;
-	line-height: 24px;
-	background: #fff;
-} */
 
 form, ul, li, p, h1, h2, h3, h4, h5, h6 {
 	margin: 0;
 	padding: 0;
 }
-
-/* input, select {
-	font-size: 14px;
-	line-height: 18px;
-} */
 
 img {
 	border: 0;
@@ -155,11 +156,50 @@ a:hover {
 .menu li ul.level2 li a.current {
 	background: #B1D7EF;
 }
+
+.menul {
+	overflow: hidden;
+	border-color: #C4D5DF;
+	border-style: solid;
+	border-width: 0 1px 1px;
+}
+
+.menul li.levela {
+	float:left;
+	margin: 0px 2px 0px 2px;
+	width: 100px;
+}
+
+.menul li.levela a {
+	display: block;
+	height: 28px;
+	line-height: 28px;
+	background: #EBF3F8;
+	font-weight: 700;
+	color: #5893B7;
+	/* text-indent: 14px; */
+	text-align:center;
+	/* border-top: 1px solid #C4D5DF; */
+	border: 1px solid #C4D5DF;
+}
+
+.menul li.levela a:hover {
+	text-decoration: none;
+}
+
+.menul li.levela a.current {
+	background: #B1D7EF;
+}
+
+
+.menul li ul {
+	overflow: hidden;
+}
 </style>
 
 <script src="js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="js/search.js" charset= "UTF-8"></script>
-<script type="text/javascript" src="js/test.js"></script>
+<script type="text/javascript" src="js/functions.js"></script>
 <script>
 	$(document).ready(function() {
 				$(".level1 > a").click(function() {
@@ -177,26 +217,26 @@ a:hover {
 									var msgnum = Number(data.substring(st_n + 3,st_n + 6));
 
 									if (list == "a") {
-										for (var i = 1; i < 11; i++) {
+										for (var i = 1; i < 30; i++) {
 											var msglen = st_n + 10 * (i - 1);
-											if(i>msgnum) $("#userlist" + i).val("");
+											if(i>msgnum) $("#userlist"+i).parent().css("display","none");
 											else $("#userlist" + i).val(data.substring(msglen + 6,msglen + 15));
 											
 										}
 									} else if (list == "b") {
-										for (var i = 1; i < 11; i++) {
+										for (var i = 1; i < 30; i++) {
 											var msglen = st_n + 10 * (i - 1);
-											if(i>msgnum) $("#devlist" + i).val("");
+											if(i>msgnum) $("#devlist"+i).parent().css("display","none");
 											else $("#devlist" + i).val(data.substring(msglen + 6,msglen + 15));
 										}
 									}
 								}
 							});
 
-							$(this).addClass("current") //¸øµ±Ç°ÔªËØÌí¼Ó"current"ÑùÊ½
-							.next().show() //ÏÂÒ»¸öÔªËØÏÔÊ¾
-							.parent().siblings().children("a").removeClass("current") //¸¸ÔªËØµÄĞÖµÜÔªËØµÄ×ÓÔªËØ<a>ÒÆ³ı"current"ÑùÊ½
-							.next().hide(); //ËüÃÇµÄÏÂÒ»¸öÔªËØÒş²Ø
+							$(this).addClass("current") //ç»™å½“å‰å…ƒç´ æ·»åŠ "current"æ ·å¼
+							.next().show() //ä¸‹ä¸€ä¸ªå…ƒç´ æ˜¾ç¤º
+							.parent().siblings().children("a").removeClass("current") //çˆ¶å…ƒç´ çš„å…„å¼Ÿå…ƒç´ çš„å­å…ƒç´ <a>ç§»é™¤"current"æ ·å¼
+							.next().hide(); //å®ƒä»¬çš„ä¸‹ä¸€ä¸ªå…ƒç´ éšè—
 							return false;
 						});
 
@@ -211,8 +251,8 @@ a:hover {
 								$("#userPWD").val("*****");
 								$("#author").val("*");
 							}						
-							$(this).addClass("current") //¸øµ±Ç°ÔªËØÌí¼Ó"current"ÑùÊ½
-							.parent().siblings().children("a").removeClass("current").next().hide(); //ËüÃÇµÄÏÂÒ»¸öÔªËØÒş²Ø */
+							$(this).addClass("current") //ç»™å½“å‰å…ƒç´ æ·»åŠ "current"æ ·å¼
+							.parent().siblings().children("a").removeClass("current").next().hide(); //å®ƒä»¬çš„ä¸‹ä¸€ä¸ªå…ƒç´ éšè— */
 							return false;
 						});
 			});
@@ -242,40 +282,44 @@ a:hover {
 		//String sql = "SELECT * FROM " + tableName + " ORDER BY id DESC LIMIT 21";
 		ResultSet rs = statement.executeQuery(sql);
 		if(!rs.next()){
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("index2.jsp");
 			return;
 		}
 		
 		//java.util.Date d = new java.util.Date();
 		//String datetime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format( new java.util.Date());
 		String datetime=new SimpleDateFormat("yyyy-MM-dd").format( new java.util.Date());
-		//String name = request.getParameter("userName"); // ½ÓÊÕ±íµ¥²ÎÊı
+		//String name = request.getParameter("userName"); // æ¥æ”¶è¡¨å•å‚æ•°
 		boolean value7 = false;
 	%>
 
 	<div id="Container">
-		<div id="Header">
-			<div id="logo" style="font-size: 20px">
-				<input type="button" value="ÔËĞĞ½çÃæ" style="margin:1px;width: 120px; height: 30px; background: #ADD8E6" 
-					onclick="href_new('user.jsp')">  
-				<input type="button" value="Êı¾İ²éÑ¯" style="margin:1px;width: 120px; height: 30px; background: #ADD8E6" 
-					onclick="href_new('search.jsp')"> 
-				<input type="button" value="Êı¾İ·ÖÎö" style="margin:1px; width: 120px; height: 30px; background: #ADD8E6"
-					onclick="href_new('line.jsp')"> 
-				<input type="button" value="ÊÓÆµ" style="margin:1px; width: 120px; height: 30px; background: #ADD8E6"
-					onclick="href_new('video.jsp')"> 
-				<input type="button" value="¹ÜÀíÔ±" style="margin:1px; width: 120px; height: 30px; background: #EDD8E6"
-					onclick="href_new('authority.jsp')"> 
-				ÓÃ»§Ãû£º<%=name%> Ê±¼ä£º<%=datetime%>
-			</div>
+		<div id="Header" >
+			<div id="Name" style="color: #5893B7"><h3>è”èˆŸæŠ€æœ¯</h3></div>
+			<div id="Timer">
+				ç”¨æˆ·åï¼š<%=name%>
+				æ—¥æœŸï¼š<%=datetime%></div>
+		</div>
+		<div id="logo">
+			<ul class="menul">
+					<li class="levela" ><a onclick="href_new('user.jsp')" >éš”ç¦»å™¨</a></li>					
+					<li class="levela" ><a onclick="href_new('video.jsp')" >è§†é¢‘ç›´æ’­</a></li>
+					<li class="levela" ><a onclick="href_new('jiont.jsp')"  >ä¸­äº§äº¤äº’å™¨</a></li>
+					<li class="levela" ><a onclick="href_new('jiontreq.jsp')" >ä¸­äº§ç»ˆç«¯</a></li>
+					<li class="levela" ><a onclick="href_new('line.jsp')" >æ•°æ®åˆ†æ</a></li>
+					<li class="levela" ><a onclick="href_new('search.jsp')" >æ•°æ®æŸ¥è¯¢</a></li>									
+					<li class="levela" ><a onclick="href_new('upgrade.jsp')" >è¿œç¨‹å‡çº§</a></li>
+					<li class="levela" ><a onclick="href_new('record.jsp')" >ä»‹ç»</a></li>		
+					<li class="levela" ><a onclick="href_new('authority.jsp')" style="background: #EDD8E6">ç®¡ç†ç™»å½•</a></li>
+			</ul>
 		</div>
 		<div id="Content-Left">
 				<ul class="menu">
-					<li class="level1" ><a id="a">ÓÃ»§ÁĞ±í</a>
+					<li class="level1" ><a id="a">ç”¨æˆ·åˆ—è¡¨</a>
 						<ul class="level2">
 							<%
 								String userlist="",userauth="";
-								for (int i = 1; i < 11; i++) {
+								for (int i = 1; i < 30; i++) {
 									userlist="userlist"+i;
 									userauth="userauth"+i;
 							%>	
@@ -285,11 +329,11 @@ a:hover {
 								</a></li>
 							<%}%>	
 						</ul></li>
-					<li class="level1" ><a id='b'>Éè±¸ÁĞ±í</a>
+					<li class="level1" ><a id='b'>è®¾å¤‡åˆ—è¡¨</a>
 						<ul class="level2">	
 							<%
 								String devlist="";
-								for (int i = 1; i < 11; i++) {
+								for (int i = 1; i < 30; i++) {
 									devlist="devlist"+i;
 							%>		
 							<li><a><input id="<%=devlist%>" onfocus="this.blur();"
@@ -302,25 +346,25 @@ a:hover {
 
 		<div id="Content-Veiw">
 			<table><tr>
-			<td width="90"></td><td width="80">ÓÃ»§Ãû</td><td width="70">ÃÜÂë</td><td width="80">È¨ÏŞ</td></tr></table>
+			<td width="90"></td><td width="80">ç”¨æˆ·å</td><td width="70">å¯†ç </td><td width="80">æƒé™</td></tr></table>
 			<input type="text" id='gpName' value="<%=groupname%>" style="width: 80px; height: 30px; margin:5px; text-align: right" readonly="readonly" />
 			<input type="text" id='userName' style="width: 40px; height: 30px; margin:5px; text-align: right" />
 			<input type="text" id='userPWD' value="admin" style="width: 80px; height: 30px; margin:5px; text-align: right" /> 
 			<input type="text" id='author' style="width: 40px; height: 30px; margin:5px; text-align: right" /><br /> 
-			<input type="submit" value="Ìí¼ÓÓÃ»§" style="width: 80px; height: 30px; margin:5px" 
+			<input type="submit" value="æ·»åŠ ç”¨æˆ·" style="width: 80px; height: 30px; margin:5px" 
 					onclick="userfun('gpName','userName','userPWD','author','add')"/> <br /> 
-			<input type="submit" value="É¾³ıÓÃ»§" style="width: 80px; height: 30px; margin:5px" 
+			<input type="submit" value="åˆ é™¤ç”¨æˆ·" style="width: 80px; height: 30px; margin:5px" 
 					onclick="userfun('gpName','userName','userPWD','author','delete')" /><br /> 
-			<input type="submit" value="ĞŞ¸ÄÓÃ»§" style="width: 80px; height: 30px; margin:5px"
+			<input type="submit" value="ä¿®æ”¹ç”¨æˆ·" style="width: 80px; height: 30px; margin:5px"
 					onclick="userfun('gpName','userName','userPWD','author','modify')" /> <br /> 
 			<br /> 
 			<table><tr>
-			<td width="80">Éè±¸Ãû</td></tr></table>
+			<td width="80">è®¾å¤‡å</td></tr></table>
 			<input type="text" id='gpdName' value="<%=groupname%>" style="width: 80px; height: 30px; margin:5px; text-align: right" readonly="readonly" />
 			<input type="text" id="devName" style="width: 40px; height: 30px; margin:5px; text-align: right" /> <br /> 
-			<input type="submit" value="Ìí¼ÓÉè±¸" style="width: 80px; height: 30px; margin:5px" 
+			<input type="submit" value="æ·»åŠ è®¾å¤‡" style="width: 80px; height: 30px; margin:5px" 
 					onclick="userfun('gpName','devName','userPWD','userPWD','addev')" /> <br /> 
-			<input type="submit" value="É¾³ıÉè±¸" style="width: 80px; height: 30px; margin:5px" 
+			<input type="submit" value="åˆ é™¤è®¾å¤‡" style="width: 80px; height: 30px; margin:5px" 
 					onclick="userfun('gpName','devName','userPWD','userPWD','delete')" /> <br />
 		</div>
 

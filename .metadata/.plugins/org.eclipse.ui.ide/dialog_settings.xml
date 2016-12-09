@@ -5,12 +5,16 @@
 		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
 		<item value="true" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="/home/chen/workspace/webtest"/>
+			<item value="/home/chen/workspace/logweb"/>
+			<item value="/home/chen/workspace/webtest "/>
+			<item value="/home/chen/workspace/jiontweb"/>
+			<item value="/home/chen/workspace/jiont"/>
 			<item value="/home/chen/workspace/first"/>
 			<item value="/home/chen/workspace/ajaxtable"/>
 			<item value="/home/chen/workspace/taskCheckboxCount"/>
 			<item value="/home/chen/workspace/ajaxliandong"/>
 			<item value="/home/chen/workspace/webSocketTest"/>
-			<item value="/home/chen/workspace/webtest"/>
 			<item value="/home/chen/workspace/wschat"/>
 			<item value="/home/chen/workspace/examples"/>
 			<item value="/home/chen/workspace/DeviceDemo"/>
@@ -21,10 +25,6 @@
 			<item value="/home/chen/workspace/WebSocketUser"/>
 			<item value="/home/chen/workspace/HNUST"/>
 			<item value="/home/chen/workspace/ssmtest"/>
-			<item value="/home/chen/workspace/springmvc_mybatis"/>
-			<item value="/home/chen/workspace/websocket"/>
-			<item value="/home/chen/workspace/plat"/>
-			<item value="/home/chen/workspace/Java-WebSocket-master"/>
 		</list>
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
 			<item value=""/>

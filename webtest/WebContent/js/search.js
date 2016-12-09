@@ -39,9 +39,10 @@ function sendRequest(sdate,edate,number,devid,pageid) {
 	XMLHttpReq.open("GET", url, true);
 	XMLHttpReq.onreadystatechange = processResponse;//指定响应函数
 	
-	XMLHttpReq.open("POST",url,true);
+	XMLHttpReq.open("POST",url,true);	
 	XMLHttpReq.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	XMLHttpReq.send(postdata);
+	
 }
 
 // 处理返回信息函数  

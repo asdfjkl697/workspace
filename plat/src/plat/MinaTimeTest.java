@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Calendar;
 import java.util.Collections;
 
 import org.apache.mina.core.service.IoAcceptor;
@@ -94,7 +93,7 @@ public class MinaTimeTest extends WebSocketClient {
 	}
 
 	static void throw2() throws URISyntaxException {
-		cc = new MinaTimeTest(new URI("ws://127.0.0.1:8080/webtest/websocket/chat"), new Draft_17());
+		cc = new MinaTimeTest(new URI("ws://127.0.0.1:80/webtest/websocket/chat"), new Draft_17());
 		cc.connect();
 		System.out.println("Inside throw2.");
 		// throw new URISyntaxException("demo"); /*need understand jyc20160110*/
@@ -164,6 +163,7 @@ public class MinaTimeTest extends WebSocketClient {
 			//String str = "tran:" + rtid.substring(0,5) + ":" + msgcont;	
 			String str = "tran:" + rtid + ":" + msgcont; //jyc20160323
 			byte upcmd = msg.getCommand();
+			//boolean session_flag=false;
 
 			if (upcmd == 0x07) {
 				session.close(false);
@@ -172,13 +172,21 @@ public class MinaTimeTest extends WebSocketClient {
 			if (upcmd == 0x3a) {
 				cc.send(str);
 			}
-			// String user = (String) session.getAttribute("user");
+			
+			/*synchronized (sessions) {
+				for (IoSession sessionx : sessions) {
+					if (sessionx.containsAttribute(rtid)) {
+						session_flag=true;
+					}
+				}
+			}
+			if(session_flag==false){
+				sessions.add(session);
+				session.setAttribute(rtid);
+			}*/
+
 			sessions.add(session);
-			// session.setAttribute("user", user);
-
-			//int port = ((InetSocketAddress) session.getLocalAddress()).getPort();
 			session.setAttribute(rtid);
-
 			MySQLcode h = new MySQLcode();
 			h.connSQL();
 
@@ -195,7 +203,7 @@ public class MinaTimeTest extends WebSocketClient {
 			if (h.insertSQL(insert) == true) {
 				System.out.println("insert successfully");
 			}
-			// h.deconnSQL();
+			h.deconnSQL();
 			session.write(message);
 		}
 

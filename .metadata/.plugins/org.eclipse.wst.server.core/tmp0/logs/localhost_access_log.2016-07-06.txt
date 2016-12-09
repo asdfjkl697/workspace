@@ -1,0 +1,14 @@
+127.0.0.1 - - [06/Jul/2016:08:31:56 +0800] "GET / HTTP/1.1" 404 951
+127.0.0.1 - - [06/Jul/2016:08:32:04 +0800] "GET /webtest/ HTTP/1.1" 200 21747
+127.0.0.1 - - [06/Jul/2016:08:32:04 +0800] "GET /webtest/websocket/chat HTTP/1.1" 101 -
+127.0.0.1 - - [06/Jul/2016:08:32:04 +0800] "GET /webtest/js/control.js HTTP/1.1" 404 993
+127.0.0.1 - - [06/Jul/2016:08:32:04 +0800] "GET /favicon.ico HTTP/1.1" 404 973
+127.0.0.1 - - [06/Jul/2016:08:32:04 +0800] "GET /webtest/ajax/author_ajax.jsp?list=b&_=1467765124487 HTTP/1.1" 200 177
+127.0.0.1 - - [06/Jul/2016:08:32:07 +0800] "GET /webtest/video.jsp HTTP/1.1" 200 5327
+127.0.0.1 - - [06/Jul/2016:08:32:07 +0800] "GET /webtest/js/control.js HTTP/1.1" 404 993
+127.0.0.1 - - [06/Jul/2016:08:32:08 +0800] "GET /webtest/ckplayer/ckplayer.js HTTP/1.1" 304 -
+127.0.0.1 - - [06/Jul/2016:08:32:08 +0800] "GET /webtest/js/control.js HTTP/1.1" 404 993
+127.0.0.1 - - [06/Jul/2016:08:32:08 +0800] "GET /webtest/ckplayer/ckplayer.swf HTTP/1.1" 304 -
+127.0.0.1 - - [06/Jul/2016:08:32:08 +0800] "GET /webtest/ckplayer/language.xml HTTP/1.1" 304 -
+127.0.0.1 - - [06/Jul/2016:08:32:08 +0800] "GET /webtest/ckplayer/style.swf HTTP/1.1" 304 -
+127.0.0.1 - - [06/Jul/2016:08:32:08 +0800] "GET /webtest/ckplayer/m3u8.swf HTTP/1.1" 304 -

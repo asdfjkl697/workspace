@@ -2,9 +2,9 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="324" key="DIALOG_WIDTH"/>
-		<item value="145" key="DIALOG_Y_ORIGIN"/>
+		<item value="270" key="DIALOG_Y_ORIGIN"/>
 		<item value="435" key="DIALOG_HEIGHT"/>
-		<item value="891" key="DIALOG_X_ORIGIN"/>
+		<item value="943" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
@@ -13,18 +13,25 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="devid_select" key="selection"/>
+		<item value="130" key="selection"/>
 		<list key="findhistory">
-			<item value="devid_select"/>
-			<item value="name"/>
-			<item value="groupname"/>
-			<item value="userid"/>
-			<item value="nickname"/>
-			<item value="devid"/>
-			<item value="pageid"/>
-			<item value="getMonth"/>
+			<item value="130"/>
+			<item value="112"/>
+			<item value="高压"/>
+			<item value="113"/>
+			<item value="125"/>
+			<item value="test.js"/>
+			<item value="functions.js"/>
+			<item value="js"/>
 		</list>
 		<list key="replacehistory">
+			<item value="functions.js"/>
+			<item value="list01.put(&quot;index&quot;, &quot;1&quot;);"/>
+			<item value="(list02)"/>
+			<item value="(list01)"/>
+			<item value="list02.put"/>
+			<item value="list01.put"/>
+			<item value="showmessage"/>
 		</list>
 	</section>
 </section>
